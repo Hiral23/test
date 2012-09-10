@@ -1,0 +1,50 @@
+<div class="myview">
+<!--
+	<b><?php echo CHtml::encode($data->getAttributeLabel('fees_payment_transaction_id')); ?>:</b>
+	<?php echo CHtml::link(CHtml::encode($data->fees_payment_transaction_id), array('view', 'id'=>$data->fees_payment_transaction_id)); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('fees_payment_master_id')); ?>:</b>
+	<?php echo CHtml::encode($data->fees_payment_master_id); ?>
+	<br />
+-->
+
+
+<tr>
+<td>
+	
+	<?php echo CHtml::encode($data->Rel_pay_method->fees_payment_method_name); ?>
+	<br />
+</td>
+<td>
+	
+	
+	<?php
+		if($data->fees_payment_method_id == 1)
+		{
+			$cash_id = FeesPaymentCash::model()->findByPk($data->fees_payment_cash_cheque_id);
+			echo CHtml::encode($cash_id->fees_payment_cash_amount).'<br />'; 
+		}
+		else
+		{
+			$cheque_id = FeesPaymentCheque::model()->findByPk($data->fees_payment_cash_cheque_id);
+			echo CHtml::encode($cheque_id->fees_payment_cheque_amount).'<br />'; 
+		}
+	?>
+</td>
+<!--
+	<b><?php echo CHtml::encode($data->getAttributeLabel('fees_receipt_id')); ?>:</b>
+	<?php echo CHtml::encode($data->fees_receipt_id); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('fees_payment')); ?>:</b>
+	<?php echo CHtml::encode($data->fees_payment); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('fees_received_user_id')); ?>:</b>
+	<?php echo CHtml::encode($data->fees_received_user_id); ?>
+	<br />
+-->
+
+</tr>
+</div>

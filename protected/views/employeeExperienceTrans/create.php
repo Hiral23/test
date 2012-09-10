@@ -1,0 +1,10 @@
+<?php
+$this->breadcrumbs=array(
+	'Employee Experience Trans'=>array('index'),
+	'Create',
+);
+
+?>
+<h1>Create Employee Experience</h1>
+
+<?php echo $this->renderPartial('_form', array('model'=>$model,'emp_exp'=>$emp_exp)); ?>

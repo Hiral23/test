@@ -1,0 +1,19 @@
+<?php
+        $tab_1 = $this->renderPartial('tabs/view_tab1', array('model'=>$model),true);
+        $tab_2 = $this->renderPartial('tabs/view_tab2', array('model'=>$model),true);
+        $tab_3 = $this->renderPartial('tabs/view_tab3', array('model'=>$model),true);
+        $tab_4 = $this->renderPartial('tabs/view_tab4', array('model'=>$model),true);
+         $this->widget('zii.widgets.jui.CJuiTabs', array(
+                'tabs'=>array(
+                   'Personal Info' =>array('title'=>'test','content'=>$tab_1),
+                   'Guardion Info' =>array('title'=>'test','content'=>$tab_2),
+                   'Other Info' =>array('title'=>'test','content'=>$tab_3),
+                   'Transaction Info' =>array('title'=>'test','content'=>$tab_4),
+
+                ),
+                // additional javascript options for the tabs plugin
+                'options'=>array(
+                        'collapsible'=>true,
+                ),
+        ));
+?>

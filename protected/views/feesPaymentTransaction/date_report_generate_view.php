@@ -1,0 +1,65 @@
+<html>
+<head>
+
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print" />
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/sal.css" media="screen, print,projection" />
+</head>
+<body>
+<div id = "go-back-link">
+<?php echo CHtml::link('GO BACK',Yii::app()->createUrl('feesPaymentTransaction/date_report')); ?>
+</div>
+<button onclick="javascript:window.print()" id="printid1">Print</button><?php echo "<br>";?>	
+
+<div class="datewise-report">
+<table class="datewise_fees_report" border="1">
+<tr>
+<th>Sr.No.</th>
+<th>Student Enroll No.</th>
+<th>Student Roll No.</th>
+<th>Student Name</th>
+<th>Branch</th>
+<th>Semester</th>
+<th>Academic Period</th>
+<th>Div</th>
+<th>date</th>
+<th>Amount</th>
+</tr>
+
+<?php 
+$i=1;
+foreach($var1 as $list)
+{
+  
+   $stud_data = StudentTransaction::model()->findByPk($list['fees_student_id']);
+   print '<tr><td>'.$i.'</td>';
+   print '<td>'.StudentInfo::model()->findByPk($stud_data->student_transaction_student_id)->student_enroll_no.'</td>';
+   print '<td>'.StudentInfo::model()->findByPk($stud_data->student_transaction_student_id)->student_roll_no.'</td>';	
+   print '<td>'.StudentInfo::model()->findByPk($stud_data->student_transaction_student_id)->student_first_name.'</td>';
+   print '<td>'.Branch::model()->findByPk($stud_data->student_transaction_branch_id)->branch_name.'</td>';
+   print '<td>'.AcademicTerm::model()->findByPk($stud_data->student_academic_term_name_id)->academic_term_name.'</td>';
+   print '<td>'.AcademicTermPeriod::model()->findByPk($stud_data->student_academic_term_period_tran_id)->academic_term_period.'</td>';
+   print '<td>'.Division::model()->findByPk($stud_data->student_transaction_division_id)->division_name.'</td>';
+   print '<td>'.$list['fees_received_date'].'</td>';
+   if($list['fees_payment_method_id'] == '1')
+   {
+		$cash_id = $list['fees_payment_cash_cheque_id'];
+		$amunt = FeesPaymentCash::model()->findByPk($cash_id)->fees_payment_cash_amount; 
+		//echo $amunt."</br>";
+		print '<td>'.$amunt.'</td>';
+   }
+   else
+   {
+		$cheque_id = $list['fees_payment_cash_cheque_id'];
+		$amunt1 = FeesPaymentCheque::model()->findByPk($cheque_id)->fees_payment_cheque_amount; 
+		
+		print '<td>'.$amunt1.'</td>';
+   }		
+$i++;
+}
+
+
+?>	
+</table>
+</div>
+</body>
+</html>

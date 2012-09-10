@@ -1,0 +1,206 @@
+<?php
+$this->menu=array(
+	
+	//array('label'=>'', 'url'=>array('create'),'linkOptions'=>array('class'=>'Create','title'=>'Create timetable')),
+	//array('label'=>'', 'url'=>array('admin'),'linkOptions'=>array('class'=>'Manage','title'=>'Manage')),
+);
+$day = array("Monday","Tuesday","Wednesday","Thursday","Friday","Saturday");
+ 
+$nooflec = $model->No_of_Lec;
+$noofbreak = $model->No_Of_Break;
+$timetableid = $model->timetable_id;
+$sum = $nooflec + $noofbreak;
+//$branch = Branch::model()->findByPk($model->timetable_branch_id)->branch_name;
+/*$div =TimeTableDetail::model()->findAllByAttributes(array(),
+								$condition  = 'timetable_id = :table_id ', 
+								$params     = array(
+									':table_id' => $timetableid,));*/
+$div = Yii::app()->db->createCommand()
+	    ->selectDistinct('division_id')
+	    ->from('time_table_detail')
+	    ->where('timetable_id='.$timetableid)
+    	    ->queryAll();
+echo CHtml::button('Goto Admin', array('class'=>'submit','submit' => array('timeTable/admin')));
+$createdate = date_create($model->creation_date);
+foreach($div as $div1)
+{									
+
+$time=$model->clg_start_time;
+$time = date('H:i:s A',strtotime($time));
+$timestamp = strtotime($time) - 60*60;
+$time = date('g:i:s A', $timestamp);
+
+?>
+<h4><u><?php echo $branch; ?>'s Time Table <?php echo "Division: ".Division::model()->findByPk($div1['division_id'])->division_code;?></u></h4>
+<h4> w.e.f:<?php echo date_format($createdate,'d-m-Y'); ?></h4>
+<table id="time-table-struc"  border="1" style="width:auto;font-size:12px;border-collapse:collapse">
+	<th  align=center>Day/Time</th>
+
+<?php
+$i=0;
+	while($i < 6)
+	{
+				
+		echo "<th>".$day[$i]."</th>";    
+		
+		$i++;
+	}
+?>	
+	
+<?php
+$tempi=0;
+$f=0;
+$break="";
+$count=0;
+$a=array();
+$a[0]=0;
+$ind=0;
+for($i=0;$i<=$nooflec;$i++)
+{
+$days=count($day);
+echo "<tr>";$duration = NoOfBreakTable::model()->findByAttributes(
+								 array(
+									'timetable_id' => $timetableid,
+									'after_lec_break' => $i,
+									));
+		$dur = $duration['duration'];
+
+		if($dur)
+		$dur1=date('i',strtotime($dur));
+		
+		if($break)
+		{
+			echo "<td style=width:100px;>".$time."-</br>".date('g:i:s A', strtotime($time)+$dur1*60)."</td><td colspan=7 align=center>Break</td></tr>";
+			$break="";
+			$timestamp = strtotime($time) +$dur1*60;
+			$time = date('g:i:s A', $timestamp);
+			$i--;
+			continue;
+			
+		}
+		else
+		{
+		
+		echo "<td style=width:100px;>".$time."-</br>".date('g:i:s A', strtotime($time) + 60*60)."</td>";
+			$timestamp = strtotime($time) + 60*60;
+			$time = date('g:i:s A', $timestamp);
+		}
+		if($tempi+2==$i)
+		{
+			$ind=0;
+		}
+
+	
+	$in=0;
+	for($j=1;$j<=$days;++$j)
+	  {
+		$subname="";
+		$room="";
+		$faculty="";
+		$batch="";
+		
+		if($a[$in]==$j && $tempi+1==$i)
+		{
+			$a[$in]=0;
+			$a[$ind]=0;
+			//unset($a[$in]);
+			if($ind>=$in)
+			$in++;		
+			continue;
+		
+		}
+		
+		
+		
+		$result=TimeTableDetail::model()->findAllByAttributes(
+								array(),
+								$condition  = 'timetable_id = :table_id AND day = :day AND lec = :lec AND division_id = :div_id',
+								$params     = array(
+									':table_id' => $timetableid,
+									':day' => $j,
+						 			':lec' => $i,
+									':div_id' =>$div1['division_id'],
+									));
+		$break=NoOfBreakTable::model()->findAllByAttributes(
+								array(),
+								$condition  = 'timetable_id = :table_id  AND after_lec_break = :lec',
+								$params     = array(
+									':table_id' => $timetableid,
+						 			':lec' => $i,
+									));
+		
+		if($result)
+		{	
+			foreach($result as $check)
+			{
+				$check_type=SubjectMaster::model()->findByAttributes(array('subject_master_id'=>$check->subject_id));
+				
+			}	
+			if($check_type['subject_master_type_id']==2)
+			{	
+				echo "<td rowspan=2 align=center style=color:".$check_type['subject_master_color_code'].";width:100px;>";				
+				$tempi=$i;         
+				$a[$ind]=$j;
+				$ind++;
+				
+				
+			}
+			else
+				echo "<td align=center style=color:".$check_type['subject_master_color_code'].";width:100px;>";				
+					
+			foreach($result as $check)
+			{
+				if($check_type['subject_master_type_id']==2)
+				$batch="(".Batch::model()->findByPk($check->batch_id)->batch_name.")";
+				$subname = SubjectMaster::model()->findByPk($check->subject_id)->subject_master_alias;
+				$room="(".RoomDetailsMaster::model()->findByPk($check->room_id)->room_name.")";	
+				$faculty="(".EmployeeInfo::model()->findByPk($check->faculty_emp_id)->employee_name_alias.")";
+				if($batch)
+				echo "</br>".$subname."</br>".$batch."</br>".$room."</br>".$faculty;
+				else
+				echo "</br>".$subname."</br>".$room."</br>".$faculty;
+			}
+			echo "</td>";
+		}
+		else
+		{
+			echo "<td style=width:100px;>".$subname."</br>".$batch."</br>".$room."</br>".$faculty."</td>";		
+			
+		}
+		
+	  }
+echo "</tr>";
+}
+/*
+
+
+$extralec=ExtralecTimetable::model()->findAllByAttributes(
+								array(),
+								$condition  = 'timetable_id = :table_id AND division_id = :div_id',
+								$params     = array(
+									':table_id' => $timetableid,
+									':div_id' =>$div1['division_id'],
+									));
+//print_r($extralec);
+//exit;
+foreach($extralec as $ext)
+{
+$check_type=SubjectMaster::model()->findByAttributes(array('subject_master_id'=>$ext->subject_id));
+$starttime=date('g:i:s A', strtotime($ext['lec_start_time']));
+$endtime=date('g:i:s A', strtotime($ext['lec_end_time']));
+echo "<tr><td>Extra Lec</td>";	
+echo "<td colspan=6 align=center style=color:".$check_type['subject_master_color_code'].">";
+
+$subname = SubjectMaster::model()->findByPk($ext->subject_id)->subject_master_alias;
+$faculty=EmployeeInfo::model()->findByPk($ext->faculty_id)->employee_name_alias;
+$room=RoomDetailsMaster::model()->findByPk($ext->room_id)->room_name;				
+//echo $ext['day_name']."</br>".$subname."</br>".$faculty."</br>".$room;
+echo $subname."(".$faculty.")(".$room.")(".$ext['day_name'].")(".$starttime." - ".$endtime.")";
+echo "</td></tr>";
+}*/
+echo "</table>";
+
+
+}//for each div
+?>
+

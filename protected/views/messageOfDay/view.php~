@@ -1,0 +1,26 @@
+<?php
+$this->breadcrumbs=array(
+	'Message Of Days'=>array('index'),
+	$model->id,
+);
+
+$this->menu=array(
+	array('label'=>'List MessageOfDay', 'url'=>array('index')),
+	array('label'=>'Create MessageOfDay', 'url'=>array('create')),
+	array('label'=>'Update MessageOfDay', 'url'=>array('update', 'id'=>$model->id)),
+	array('label'=>'Delete MessageOfDay', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'Manage MessageOfDay', 'url'=>array('admin')),
+);
+?>
+
+<h1>View MessageOfDay #<?php echo $model->id; ?></h1>
+
+<?php $this->widget('zii.widgets.CDetailView', array(
+	'data'=>$model,
+	'attributes'=>array(
+		'id',
+		'message',
+		'created_by',
+		'creation_date',
+	),
+)); ?>

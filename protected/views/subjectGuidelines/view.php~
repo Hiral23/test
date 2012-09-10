@@ -1,0 +1,36 @@
+<?php
+$this->breadcrumbs=array(
+	'Subject Guidelines'=>array('index'),
+	$model->id,
+);
+
+$this->menu=array(
+	array('label'=>'List SubjectGuidelines', 'url'=>array('index')),
+	array('label'=>'Create SubjectGuidelines', 'url'=>array('create')),
+	array('label'=>'Update SubjectGuidelines', 'url'=>array('update', 'id'=>$model->id)),
+	array('label'=>'Delete SubjectGuidelines', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'Manage SubjectGuidelines', 'url'=>array('admin')),
+);
+?>
+
+<h1>View SubjectGuidelines #<?php echo $model->id; ?></h1>
+
+<?php $this->widget('zii.widgets.CDetailView', array(
+	'data'=>$model,
+	'attributes'=>array(
+		'id',
+		'guideline',
+		
+		//'subject_id',
+		//'created_by',
+		array(
+                'name'=>'Subject',
+		'type'=>'raw',
+                'value'=> $model->rel_guideline_sub->subject_master_name,
+          ),
+		array('name'=>'created_by',
+			'value'=>User::model()->findByPk($model->created_by)->user_organization_email_id,
+		),	
+		'creation_date',
+	),
+)); ?>

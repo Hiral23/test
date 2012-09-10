@@ -1,0 +1,17 @@
+<?php
+$this->breadcrumbs=array(
+	'Subject Syllabuses',
+);
+
+$this->menu=array(
+	//array('label'=>'Create SubjectSyllabus', 'url'=>array('create')),
+	//array('label'=>'Manage SubjectSyllabus', 'url'=>array('admin')),
+);
+?>
+
+<h1>Subject Syllabuses</h1>
+
+<?php $this->widget('zii.widgets.CListView', array(
+	'dataProvider'=>$dataProvider,
+	'itemView'=>'_view',
+)); ?>

@@ -1,0 +1,19 @@
+<?php
+class Krunal extends DPortlet
+{
+
+  protected function renderContent()
+  {
+    echo 'Krunal Designer';
+  }
+  
+  protected function getTitle()
+  {
+    return 'Karmraj';
+  }
+  
+  protected function getClassName()
+  {
+    return __CLASS__;
+  }
+}

@@ -1,0 +1,237 @@
+<?php
+
+/**
+ * This is the model class for table "employee_transaction".
+ *
+ * The followings are the available columns in table 'employee_transaction':
+ * @property integer $employee_transaction_id
+ * @property integer $employee_transaction_user_id
+ * @property integer $employee_transaction_employee_id
+ * @property integer $employee_transaction_emp_address_id
+ * @property integer $employee_transaction_branch_id
+ * @property integer $employee_transaction_category_id
+ * @property integer $employee_transaction_quota_id
+ * @property integer $employee_transaction_religion_id
+ * @property integer $employee_transaction_shift_id
+ * @property integer $employee_transaction_designation_id
+ * @property integer $employee_transaction_nationality_id
+ * @property integer $employee_transaction_department_id
+ * @property integer $employee_transaction_organization_id
+ * @property integer $employee_transaction_languages_known_id
+ * @property integer $employee_transaction_emp_photos_id
+ *
+ * The followings are the available model relations:
+ * @property EmployeeInfo $employeeTransactionEmployee
+ * @property User $employeeTransactionUser
+ */
+class EmployeeTransaction extends CActiveRecord
+{
+	/**
+	 * Returns the static model of the specified AR class.
+	 * @return EmployeeTransaction the static model class
+	 */
+	public $category_name, $branch_name, $employee_first_name, $department_name, $shift_type, $quota_name,$employee_type;
+
+	
+	public static function model($className=__CLASS__)
+	{
+		return parent::model($className);
+	}
+
+	/**
+	 * @return string the associated database table name
+	 */
+	public function tableName()
+	{
+		return 'employee_transaction';
+	}
+
+	/**
+	 * @return array validation rules for model attributes.
+	 */
+	public function rules()
+	{
+		// NOTE: you should only define rules for those attributes that
+		// will receive user inputs.
+		return array(
+			array('employee_transaction_branch_id, employee_transaction_category_id, employee_transaction_shift_id, employee_transaction_designation_id, employee_transaction_nationality_id, employee_transaction_department_id', 'required','message'=>''),
+
+			array('employee_transaction_user_id, employee_transaction_employee_id, employee_transaction_emp_address_id, employee_transaction_branch_id, employee_transaction_category_id, employee_transaction_religion_id, employee_transaction_shift_id, employee_transaction_designation_id, employee_transaction_nationality_id, employee_transaction_department_id, employee_transaction_organization_id, employee_transaction_languages_known_id, employee_transaction_emp_photos_id', 'numerical', 'integerOnly'=>true),
+
+
+			
+			// The following rule is used by search().
+			// Please remove those attributes that should not be searched.
+			array('employee_transaction_id, employee_transaction_user_id, employee_transaction_employee_id, employee_transaction_emp_address_id, employee_transaction_branch_id, employee_transaction_category_id, employee_transaction_religion_id, employee_transaction_shift_id, employee_transaction_designation_id, employee_transaction_nationality_id, employee_transaction_department_id, employee_transaction_organization_id, employee_transaction_languages_known_id, employee_transaction_emp_photos_id, category_name, branch_name, employee_first_name, department_name, quota_name, shift_type,employee_type', 'safe', 'on'=>'search'),
+		);
+
+	}
+
+	/**
+	 * @return array relational rules.
+	 */
+	public function relations()
+	{
+		// NOTE: you may need to adjust the relation name and the related
+		// class name for the relations automatically generated below.
+		return array(
+			'Rel_Emp_Info' => array(self::BELONGS_TO, 'EmployeeInfo', 'employee_transaction_employee_id'),
+			'Rel_Branch' => array(self::BELONGS_TO, 'Branch', 'employee_transaction_branch_id'),
+			'Rel_Category' => array(self::BELONGS_TO, 'Category', 'employee_transaction_category_id'),
+			'Rel_Type' => array(self::BELONGS_TO, 'EmployeeInfo', 'employee_type'),
+			'Rel_Quota' => array(self::BELONGS_TO, 'Quota', 'employee_transaction_quota_id'),
+			'Rel_Religion' => array(self::BELONGS_TO, 'Religion', 'employee_transaction_religion_id'),
+			'Rel_Shift' => array(self::BELONGS_TO, 'Shift', 'employee_transaction_shift_id'),
+			'Rel_Designation' => array(self::BELONGS_TO, 'EmployeeDesignation', 'employee_transaction_designation_id'),
+			'Rel_Nationality' => array(self::BELONGS_TO, 'Nationality', 'employee_transaction_nationality_id'),
+			'Rel_Department' => array(self::BELONGS_TO, 'Department', 'employee_transaction_department_id'),
+			'Rel_Organization' => array(self::BELONGS_TO, 'Organization', 'employee_transaction_organization_id'),
+			'Rel_Photo' => array(self::BELONGS_TO, 'EmployeePhotos', 'employee_transaction_emp_photos_id'),
+			'Rel_Employee_Address' => array(self::BELONGS_TO, 'EmployeeAddress', 'employee_transaction_emp_address_id'),		
+		);
+	}
+
+	/**
+	 * @return array customized attribute labels (name=>label)
+	 */
+	public function attributeLabels()
+	{
+		return array(
+			'employee_transaction_id' => 'Employee Transaction',
+			'employee_transaction_user_id' => 'Employee Transaction User',
+			'employee_transaction_employee_id' => 'Employee Transaction Employee',
+			'employee_transaction_emp_address_id' => 'Employee Transaction Emp Address',
+			'employee_transaction_branch_id' => 'Branch',
+			'employee_transaction_category_id' => 'Category',
+			//'employee_transaction_quota_id' => 'Quota',
+			'employee_transaction_religion_id' => 'Religion',
+			'employee_transaction_shift_id' => 'Shift',
+			'employee_transaction_designation_id' => 'Designation',
+			'employee_transaction_nationality_id' => 'Nationality',
+			'employee_transaction_department_id' => 'Department',
+			'employee_transaction_organization_id' => 'Organization',
+			'employee_transaction_languages_known_id' => 'Languages Known',
+			'employee_transaction_emp_photos_id' => 'Photos',
+			'employee_no' => 'Employee No',
+			'employee_first_name' => 'Employee First Name',
+			'employee_middle_name' => 'Employee Middle Name',
+			'employee_last_name' => 'Employee Last Name',
+			'employee_name_alias' => 'Employee Name Alias',
+			'employee_dob' => 'Employee Dob',
+			'employee_birthplace' => 'Employee Birthplace',
+			'employee_gender' => 'Employee Gender',
+			'employee_bloodgroup' => 'Employee Bloodgroup',
+			'employee_marital_status' => 'Employee Marital Status',
+			'employee_private_email' => 'Employee Private Email',
+			'employee_organization_mobile' => 'Employee Organization Mobile',
+			'employee_private_mobile' => 'Employee Private Mobile',
+			'employee_pancard_no' => 'Employee Pancard No',
+			'employee_account_no' => 'Employee Account No',
+			'employee_joining_date' => 'Employee Joining Date',
+			'employee_probation_period' => 'Employee Probation Period',
+			'employee_hobbies' => 'Employee Hobbies',
+			'employee_technical_skills' => 'Employee Technical Skills',
+			'employee_project_details' => 'Employee Project Details',
+			'employee_curricular' => 'Employee Curricular',
+			'employee_reference' => 'Employee Reference',
+			'employee_refer_designation' => 'Employee Refer Designation',
+			'employee_guardian_name' => 'Employee Guardian Name',
+			'employee_guardian_relation' => 'Employee Guardian Relation',
+			'employee_guardian_home_address' => 'Employee Guardian Home Address',
+			'employee_guardian_qualification' => 'Employee Guardian Qualification',
+			'employee_guardian_occupation' => 'Employee Guardian Occupation',
+			'employee_guardian_income' => 'Employee Guardian Income',
+			'employee_guardian_occupation_address' => 'Employee Guardian Occupation Address',
+			'employee_guardian_occupation_city' => 'Employee Guardian Occupation City',
+			'employee_guardian_city_pin' => 'Employee Guardian City Pin',
+			'employee_guardian_phone_no' => 'Employee Guardian Phone No',
+			'employee_guardian_mobile1' => 'Employee Guardian Mobile1',
+			'employee_guardian_mobile2' => 'Employee Guardian Mobile2',
+			'employee_faculty_of' => 'Employee Faculty Of',
+			'employee_attendance_card_id' => 'Employee Attendance Card',
+			'employee_tally_id' => 'Employee Tally',
+			'employee_type' => 'Employee Type',
+		);
+	}
+
+	/**
+	 * Retrieves a list of models based on the current search/filter conditions.
+	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+	 */
+	public function search()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		$criteria->condition = 'employee_transaction_organization_id = :orgid';
+	        $criteria->params = array(':orgid' => Yii::app()->user->getState('org_id'));  /// Note: Pass perameter to get recored related to perticular condition...
+
+		
+		$criteria->with = array('Rel_Category','Rel_Branch' ,'Rel_Emp_Info', 'Rel_Department', 'Rel_Quota', 'Rel_Shift');
+
+		$criteria->compare('employee_transaction_id',$this->employee_transaction_id);
+		$criteria->compare('employee_transaction_user_id',$this->employee_transaction_user_id);
+		$criteria->compare('employee_transaction_employee_id',$this->employee_transaction_employee_id);
+		$criteria->compare('employee_transaction_emp_address_id',$this->employee_transaction_emp_address_id);
+		$criteria->compare('employee_transaction_branch_id',$this->employee_transaction_branch_id);
+		$criteria->compare('employee_transaction_category_id',$this->employee_transaction_category_id);
+		//$criteria->compare('employee_transaction_quota_id',$this->employee_transaction_quota_id);
+		$criteria->compare('employee_transaction_religion_id',$this->employee_transaction_religion_id);
+		$criteria->compare('employee_transaction_shift_id',$this->employee_transaction_shift_id);
+		$criteria->compare('employee_transaction_designation_id',$this->employee_transaction_designation_id);
+		$criteria->compare('employee_transaction_nationality_id',$this->employee_transaction_nationality_id);
+		$criteria->compare('employee_transaction_department_id',$this->employee_transaction_department_id);
+		$criteria->compare('employee_transaction_organization_id',$this->employee_transaction_organization_id);
+		$criteria->compare('employee_transaction_languages_known_id',$this->employee_transaction_languages_known_id);
+		$criteria->compare('employee_transaction_emp_photos_id',$this->employee_transaction_emp_photos_id);
+
+
+		$criteria->compare('Rel_Category.category_name',$this->category_name,true);
+		$criteria->compare('Rel_Branch.branch_name',$this->branch_name,true);
+		$criteria->compare('Rel_Emp_Info.employee_first_name',$this->employee_first_name,true);
+
+		$criteria->compare('Rel_Department.department_name',$this->department_name,true);
+		$criteria->compare('Rel_Quota.quota_name',$this->quota_name,true);
+		$criteria->compare('Rel_Shift.shift_type',$this->shift_type,true);
+		$criteria->compare('Rel_Emp_Info.employee_type',$this->employee_type,true);
+		
+
+		return new CActiveDataProvider(get_class($this), array(
+			'criteria'=>$criteria,
+			'sort'=>array(
+				    'defaultOrder'=>'employee_transaction_id DESC',
+				),
+		));
+	}
+
+	public function findcity($id)
+	{
+		       // Warning: Please modify the following code to remove attributes that
+		       // should not be searched.
+		       $name = City::model()->findByPk($id);
+		       return $name->city_name;
+		       
+	}
+	public function findcountry($id)
+	{
+		       // Warning: Please modify the following code to remove attributes that
+		       // should not be searched.
+		       $name = Country::model()->findByPk($id);
+		       return $name->name;
+		       
+	}
+
+	public function findstate($id)
+	{
+		       // Warning: Please modify the following code to remove attributes that
+		       // should not be searched.
+		       $name = State::model()->findByPk($id);
+		       return $name->state_name;
+		       
+	}
+	
+	
+
+}

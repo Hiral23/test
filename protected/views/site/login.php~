@@ -1,0 +1,87 @@
+
+<!--<div class="loghead">-->
+<!--</div>-->
+<!--<?php        
+
+$this->beginWidget('zii.widgets.jui.CJuiDialog', array(
+	'id'=>'mydialog',
+	// additional javascript options for the dialog plugin
+	'options'=>array(
+		'title'=>'Login to the System',
+		'autoOpen'=>true,
+		'modal'=>true,	
+                'height'=>400,
+                'width'=>400,
+                'resizable'=>false,
+                'draggable'=>false,
+	),
+));
+?>-->
+
+<div class="form">
+<?php $form=$this->beginWidget('CActiveForm', array(
+	'id'=>'login-form',
+	'enableClientValidation'=>true,
+	'focus'=>array($emp_doc,'employee_docs_desc'),
+	'clientOptions'=>array(
+		'validateOnSubmit'=>true,
+	),
+)); ?>
+
+	<!--<p class="note">Fields with <span class="required">*</span> are required.</p>-->
+	 <table>
+        <tr>
+		<td colspan="2">
+           	<div class="block-error">
+		  <?php echo Yii::app()->user->getFlash('block'); ?>
+		</div></td>
+	</tr>
+	<tr>
+	    <td>
+		<?php echo $form->labelEx($model,'username'); ?>
+            </td>
+            <td>
+		<?php  echo $form->textField($model,'username'); ?>
+                <?php //echo $form->dropDownList($model,"username",$temp); ?>
+		<?php echo $form->error($model,'username'); ?>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+		<?php echo $form->labelEx($model,'password'); ?>
+            </td>
+            <td>
+		<?php echo $form->passwordField($model,'password'); ?>
+		<?php echo $form->error($model,'password'); ?>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2" align="center">
+		<?php echo CHtml::submitButton('Login',array('class'=>'submit')); ?>
+            </td>
+            <td>
+            </td>
+        </tr>
+    </table>
+<!--
+	<div class="row rememberMe">
+		<?php echo $form->checkBox($model,'rememberMe'); ?>
+		<?php echo $form->label($model,'rememberMe'); ?>
+		<?php echo $form->error($model,'rememberMe'); ?>
+	</div>
+-->
+
+<?php $this->endWidget(); ?>
+</div><!-- form -->
+<!--<?php
+$this->endWidget('zii.widgets.jui.CJuiDialog');
+
+// the link that may open the dialog
+echo CHtml::link('Click here to Login', '#', array(
+	'onclick'=>'$("#mydialog").dialog("open"); return false;',
+));
+
+        
+?>-->

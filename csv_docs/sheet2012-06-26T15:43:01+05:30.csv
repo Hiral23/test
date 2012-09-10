@@ -1,0 +1,44 @@
+"Dept ID : ","All",,"Date : ",05/03/12,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+"Dept","Emp.ID","Name","Hol","WO","Shift","In1","Out1","In2","Out2","In3","Out3","In4","Out4","In5","Out5","Late","Early","Rem.","Leave","Tr","P.Wrk","U.Wrk","T.Wrk","Ex.Wk","OT","OD","DATE"
+"Ele",2,"Mr. Parth Vikrambhai Sandesara",,,"Gen",09:57:00,10:11:00,11:50:00,13:30:00,14:00:00,17:00:00,17:30:00,18:30:00,19:00:00,20:00:00,,12:44:00 AM,"p",,,,,06:14:00 AM,,,,02/22/12
+"Gen",3,"Jitendra Natvarbhai Prajapati",,,"Gen",09:43:00,16:58:00,,,,,,,,,,,"P",,,,,07:15:00 AM,12:03:00 AM,,,02/22/12
+"Gen",4,"Piyush Madhavlal Patel",,,"Gen",09:29:00,16:57:00,,,,,,,,,,,"P",,,,,07:28:00 AM,12:02:00 AM,,,02/22/12
+"Mech",5,"Hitesh Baldevbhai Prajapati",,,"Gen",,,,,,,,,,,,,"A",,,,,,,,,02/22/12
+"Civil",6,"Mehul Kiritbhai Dethariya",,,"Gen",09:34:00,16:57:00,,,,,,,,,,,"P",,,,,07:23:00 AM,12:02:00 AM,,,02/22/12
+"Comp",7,"Darshan Poonambhai Patel",,,"Gen",09:37:00,16:58:00,,,,,,,,,,,"P",,,,,07:21:00 AM,12:03:00 AM,,,02/22/12
+"Comp",8,"Avani Jaykrushnabhai Raval",,,"Gen",09:33:00,16:55:00,,,,,,,,,,,"P",,,,,07:22:00 AM,,,,02/22/12
+"Gen",9,"Monal Kanubhai Desai",,,"Gen",09:45:00,17:01:00,,,,,,,,,,,"P",,,,,07:16:00 AM,12:06:00 AM,,,02/22/12
+"Civil",10,"Rahul Kaniyalal Rathod",,,"Gen",09:29:00,16:57:00,,,,,,,,,,,"P",,,,,07:28:00 AM,12:02:00 AM,,,02/22/12
+"Mech",11,"Sukrut Maheshkumar Sompura",,,"Gen",09:56:00,16:57:00,,,,,,,,,,,"P",,,,,07:01:00 AM,12:02:00 AM,,,02/22/12
+"Gen",12,"Bhavika Nikhilkumar Barot",,,"Gen",09:34:00,16:55:00,,,,,,,,,,,"P",,,,,07:21:00 AM,,,,02/22/12
+"Ele",13,"Nikunj Govindbhai Patel",,,"Gen",09:29:00,16:57:00,,,,,,,,,,,"P",,,,,07:28:00 AM,12:02:00 AM,,,02/22/12
+"Mech",14,"Parth Dineshbhai Patel",,,"Gen",09:57:00,16:59:00,,,,,,,,,,,"P",,,,,07:02:00 AM,12:04:00 AM,,,02/22/12
+"Admin",15,"Krupa Tusharbhai Patel",,,"Gen",09:32:00,16:46:00,,,,,,,,,,12:09:00 AM,"P",,,,,07:14:00 AM,,,,02/22/12
+"Admin",16,"Mr.girish Rameshchandra Khamar",,,"Gen",09:23:00,16:56:00,,,,,,,,,,,"P",,,,,07:33:00 AM,12:01:00 AM,,,02/22/12
+"Admin",17,"Vishnu Hemrajbhai Chaudhary",,,"Pen",08:54:00,17:49:00,,,,,,,,,,12:06:00 AM,"P",,,,,08:55:00 AM,,,,02/22/12
+"Admin",18,"Askash Galabji Thakor",,,"Gen",08:04:00,17:49:00,,,,,,,,,,,"P",,,,,09:45:00 AM,12:54:00 AM,,,02/22/12
+"Admin",19,"Narendrakumar Vastraram Rana",,,"Pen",08:39:00,17:37:00,,,,,,,,,,12:18:00 AM,"P",,,,,08:58:00 AM,,,,02/22/12
+"Admin",20,"Bhartiben Nehalkumar Oza",,,"Gen",09:48:00,,,,,,,,,,,,"A",,,,,,,,,02/22/12
+"Admin",21,"Urvi Jitendrakumar Khamar",,,"Gen",10:19:00,17:43:00,,,,,,,,,,,"P",,,,,07:24:00 AM,12:48:00 AM,,,02/22/12
+"Admin",22,"Suresh Khumansinh Vihol",,,"Gen",,,,,,,,,,,,,"A",,,,,,,,,02/22/12
+"Admin",23,"Vasantkumar Kachardas Patel",,,"Gen",10:34:00,17:08:00,,,,,,,,,12:39:00 AM,,"p",,,,,06:34:00 AM,12:13:00 AM,,,02/22/12
+"Admin",24,"Ajaysinh Vikramsinh Rathod",,,"Gen",,,,,,,,,,,,,"A",,,,,,,,,02/22/12
+"Comp",25,"Khodaji Chhagugi Rajput",,,"Gen",10:23:00,16:56:00,,,,,,,,,,,"p",,,,,06:33:00 AM,12:01:00 AM,,,02/22/12
+"Admin",26,"Rajnikant Ramchandbhai Prajapa",,,"Gen",08:58:00,17:08:00,,,,,,,,,,,"P",,,,,08:10:00 AM,12:13:00 AM,,,02/22/12
+"Admin",27,"Pratapji Chamanji Rajput",,,"Pen",08:09:00,17:35:00,,,,,,,,,,12:20:00 AM,"P",,,,,09:26:00 AM,,,,02/22/12
+"Civil",28,"Nitin Jayantibhai Patel",,,"Gen",09:29:00,16:58:00,,,,,,,,,,,"P",,,,,07:29:00 AM,12:03:00 AM,,,02/22/12
+"Mech",29,"Bharat Babubhai Mistry",,,"Gen",09:43:00,16:58:00,,,,,,,,,,,"P",,,,,07:15:00 AM,12:03:00 AM,,,02/22/12
+"Comp",30,"Gangaram Kesharabhai Patel",,,"Gen",09:08:00,17:38:00,,,,,,,,,,,"P",,,,,08:30:00 AM,12:43:00 AM,,,02/22/12
+"Admin",31,"Mr. Jagdishsinh Joraji Rana",,,"Gen",10:07:00,17:07:00,,,,,,,,,,,"P",,,,,07:00:00 AM,12:12:00 AM,,,02/22/12
+"Ele",32,"Rajendra Ganpatlal Patel",,,"Gen",09:43:00,16:57:00,,,,,,,,,,,"P",,,,,07:14:00 AM,12:02:00 AM,,,02/22/12
+"Gen",33,"Jumishree Sarmah Pathak",,,"Gen",,,,,,,,,,,,,"A",,,,,,,,,02/22/12
+"Admin",36,"Suresh Velaji Thakor",,,"Gen",,,,,,,,,,,,,"A",,,,,,,,,02/22/12
+"Ele",37,"Shailesh Karsanbhai Prajapati",,,"Gen",,,,,,,,,,,,,"A",,,,,,,,,02/22/12
+"Civil",38,"Jigar Jasvantbhai Patel",,,"Gen",,,,,,,,,,,,,"A",,,,,,,,,02/22/12
+"Civil",39,"Nilesh Khemchandbhai Thakker",,,"Gen",,,,,,,,,,,,,"A",,,,,,,,,02/22/12
+"Civil",40,"Hiral Vinodchandra Patel",,,"Gen",09:57:00,16:57:00,,,,,,,,,,,"P",,,,,07:00:00 AM,12:02:00 AM,,,02/22/12
+"Admin",41,"Sangita Ishwarbhai Makwana",,,"Gen",,,,,,,,,,,,,"A",,,,,,,,,02/22/12
+"Mech",42,"Satishkumar Amrutlal Patel",,,"Gen",09:34:00,16:57:00,,,,,,,,,,,"P",,,,,07:23:00 AM,12:02:00 AM,,,02/22/12
+"Admin",43,"Chaudhary Ketan Dashrathbhai",,,"Gen",09:45:00,17:07:00,,,,,,,,,,,"P",,,,,07:22:00 AM,12:12:00 AM,,,02/22/12
+"Civil",44,"Bharatsinh .s Rathod",,,"Gen",08:14:00,,,,,,,,,,,,"A",,,,,,,,,02/22/12

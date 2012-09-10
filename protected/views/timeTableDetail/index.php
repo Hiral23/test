@@ -1,0 +1,17 @@
+<?php
+$this->breadcrumbs=array(
+	'Time Table Details',
+);
+
+/*$this->menu=array(
+	array('label'=>'Create TimeTableDetail', 'url'=>array('create')),
+	array('label'=>'Manage TimeTableDetail', 'url'=>array('admin')),
+);*/
+?>
+
+<h1>Time Table Details</h1>
+
+<?php $this->widget('zii.widgets.CListView', array(
+	'dataProvider'=>$dataProvider,
+	'itemView'=>'_view',
+)); ?>

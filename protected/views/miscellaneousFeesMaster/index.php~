@@ -1,0 +1,17 @@
+<?php
+$this->breadcrumbs=array(
+	'Miscellaneous Fees Masters',
+);
+
+$this->menu=array(
+	array('label'=>'Create MiscellaneousFeesMaster', 'url'=>array('create')),
+	array('label'=>'Manage MiscellaneousFeesMaster', 'url'=>array('admin')),
+);
+?>
+
+<h1>Miscellaneous Fees Masters</h1>
+
+<?php $this->widget('zii.widgets.CListView', array(
+	'dataProvider'=>$dataProvider,
+	'itemView'=>'_view',
+)); ?>

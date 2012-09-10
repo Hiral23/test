@@ -1,0 +1,248 @@
+<?php
+echo "I AM HERE...";
+
+$con = mysql_connect("localhost","root","redhat");
+
+if (!$con)
+  {
+  die('Could not connect: ' . mysql_error());
+  }
+
+$date = date('c');
+
+
+$file_handle =fopen("csv_docs/sheet".$date.".csv","r");
+$filename = "Book1".$date.".csv";
+
+$i = 0;
+$k = 0;
+
+mysql_select_db("db28062012", $con);
+
+while (!feof($file_handle))
+{
+	$line_of_text = fgetcsv($file_handle,1024);	
+
+
+
+	if(($i > 2) && ($line_of_text[1] != 0))
+
+	{
+		//print_r($line_of_text);
+		$var1=$line_of_text[1]; /* employee id(code) */
+		$var2=date("Y-m-d");
+		$var3=$line_of_text[6]; /* in time1 */
+		$var4=$line_of_text[7]; /* out time1 */
+		$var5=$line_of_text[8]; /* in time2 */
+		//echo $line_of_text[9];
+		//exit;
+		$var6=$line_of_text[9]; /* out time2 */
+		$var7=$line_of_text[10]; /* in time3 */
+		$var8=$line_of_text[11]; /* out time3 */
+		$var9=$line_of_text[12]; /* in time4 */
+		$var10=$line_of_text[13]; /* out time4 */
+		$var11=$line_of_text[14]; /* in time5 */
+		$var12=$line_of_text[15]; /* out time5*/
+		
+		//echo $var1."</br>";
+		//echo $var2."</br>";
+		
+		
+		if($var3 == null)
+		{
+			$var3 = "00:00";			
+		//	echo $var3."</br>";
+		}
+		else
+		{	
+		//	echo $var3."</br>";
+		
+		}
+		if($var4 == null)
+		{
+			$var4 = "00:00";			
+		//	echo $var4."</br>";
+		}
+		else
+		{	
+		//	echo $var4."</br>";
+		
+		}
+		if($var5 == null)
+		{
+			$var5 = "00:00";			
+			echo $var5."</br>";
+		}
+		else
+		{	
+			echo $var5."</br>";
+		
+		}
+		if($var6 == null)
+		{
+			$var6 = "00:00";			
+			echo $var6."</br>";
+		}
+		else
+		{	
+			echo $var6."</br>";
+		
+		}
+		if($var7 == null)
+		{
+			$var7 = "00:00";			
+			echo $var7."</br>";
+		}
+		else
+		{	
+			echo $var7."</br>";
+		
+		}
+		if($var8 == null)
+		{
+			$var8 = "00:00";			
+			echo $var8."</br>";
+		}
+		else
+		{	
+			echo $var8."</br>";
+		
+		}
+		if($var9 == null)
+		{
+			$var9 = "00:00";			
+			echo $var9."</br>";
+		}
+		else
+		{	
+			echo $var9."</br>";
+		
+		}
+		if($var10 == null)
+		{
+			$var10 = "00:00";			
+			echo $var10."</br>";
+		}
+		else
+		{	
+			echo $var10."</br>";
+		
+		}
+		if($var11 == null)
+		{
+			$var11 = "00:00";			
+			echo $var11."</br>";
+		}
+		else
+		{	
+			echo $var11."</br>";
+		
+		}
+		if($var12 == null)
+		{
+			$var12 = "00:00";			
+			echo $var12."</br>";
+		}
+		else
+		{	
+			echo $var12."</br>";
+		
+		}
+
+	echo "</br>";
+	/*
+	
+	$total_hrs21 = mysql_query('SELECT TIMEDIFF("'.$var3.'","'.$var4.'")');
+	while($row12 = mysql_fetch_array($total_hrs21))
+		$test21 =  $row12[0];	
+
+	echo $test21.'<br />';
+	//exit;
+*/
+//	echo "starting my code <br />";\
+
+	$var3 = DATE("H:i", STRTOTIME($var3));
+	$var4 = DATE("H:i", STRTOTIME($var4));
+
+	
+	$var5 = DATE("H:i", STRTOTIME($var5));
+	$var6 = DATE("H:i", STRTOTIME($var6));
+
+	$var7 = DATE("H:i", STRTOTIME($var7));
+	$var8 = DATE("H:i", STRTOTIME($var8));
+
+	$var9 = DATE("H:i", STRTOTIME($var9));
+	$var10 = DATE("H:i", STRTOTIME($var10));
+
+	$var11 = DATE("H:i", STRTOTIME($var11));
+	$var12 = DATE("H:i", STRTOTIME($var12));
+
+	$total_hrs12 = mysql_query('SELECT SUBTIME("'.$var4.'","'.$var3.'")');
+	while($row12 = mysql_fetch_array($total_hrs12))
+		$test12 =  $row12[0];	
+
+//	echo $test12.'<br />';	
+//	exit;
+	
+
+	$total_hrs34 = mysql_query('SELECT SUBTIME("'.$var6.'","'.$var5.'")');
+	while($row34 = mysql_fetch_array($total_hrs34))
+		$test34 =  $row34[0];		
+
+//	echo $test34.'<br />';	
+
+	$total_hrs56 = mysql_query('SELECT SUBTIME("'.$var8.'","'.$var7.'")');
+	while($row56 = mysql_fetch_array($total_hrs56))
+		$test56 =  $row56[0];		
+
+//	echo $test56.'<br />';	
+
+	$total_hrs78 = mysql_query('SELECT SUBTIME("'.$var10.'","'.$var9.'")');
+	while($row78 = mysql_fetch_array($total_hrs78))
+		$test78 =  $row78[0];		
+
+//	echo $test78.'<br />';	
+
+	$total_hrs910 = mysql_query('SELECT SUBTIME("'.$var12.'","'.$var11.'")');
+	while($row910 = mysql_fetch_array($total_hrs910))
+		$test910 =  $row910[0];		
+
+//	echo $test910.'<br />';	
+
+///	echo "Start Calculating...<br />";
+
+	$total_hrs1 = mysql_query('SELECT ADDTIME("'.$test12.'","'.$test34.'")');
+	while($total_row1 = mysql_fetch_array($total_hrs1))
+		$total1 =  $total_row1[0];	
+
+//	echo $total1.'<br />';
+
+	$total_hrs2 = mysql_query('SELECT ADDTIME("'.$test56.'","'.$test78.'")');
+	while($total_row2 = mysql_fetch_array($total_hrs2))
+		$total2 =  $total_row2[0];	
+
+//	echo $total2.'<br />';
+
+	$total_hrs3 = mysql_query('SELECT ADDTIME("'.$total1.'","'.$total2.'")');
+	while($total_row3 = mysql_fetch_array($total_hrs3))
+		$total3 =  $total_row3[0];	
+
+//	echo $total3.'<br />';
+
+	$total_hrs4 = mysql_query('SELECT ADDTIME("'.$total3.'","'.$test910.'")');
+
+	while($total_row4 = mysql_fetch_array($total_hrs4))
+		$final_total =  $total_row4[0];	
+
+
+	mysql_query("INSERT INTO employee_attendence (employee_id,date,time1,time2,time3,time4,time5,time6,time7,time8,time9,time10,total_hour,csvfile)
+VALUES ('$var1','$var2','$var3','$var4','$var5','$var6','$var7','$var8','$var9','$var10','$var11','$var12','$final_total','$filename')");
+			
+    }
+$i++;
+}
+//exit;
+mysql_close($con);
+fclose($file_handle);
+$this->redirect(array('admin'));
+?> 

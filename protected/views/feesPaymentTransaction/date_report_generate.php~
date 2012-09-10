@@ -1,0 +1,30 @@
+<div class = "go-back-link">
+<?php echo CHtml::link('GO BACK',Yii::app()->createUrl('feesPaymentTransaction/date_report')); ?>
+</div>
+<div class="datewise-report">
+<table class="datewise_fees_report" border="1">
+<tr>
+<th>Student Enroll No.</th>
+<th>Student Name</th>
+<th>Branch</th>
+<th>Semester</th>
+<th>Academic Period</th>
+<th>Div</th>
+</tr>
+<?php 
+
+foreach($var1 as $list)
+{
+  
+   $stud_data = StudentTransaction::model()->findByPk($list['fees_student_id']);
+   print '<tr><td>'.StudentInfo::model()->findByPk($stud_data->student_transaction_student_id)->student_enroll_no.'</td>';
+   print '<td>'.StudentInfo::model()->findByPk($stud_data->student_transaction_student_id)->student_first_name.'</td>';
+   print '<td>'.Branch::model()->findByPk($stud_data->student_transaction_branch_id)->branch_name.'</td>';
+   print '<td>'.AcademicTerm::model()->findByPk($stud_data->student_academic_term_name_id)->academic_term_name.'</td>';
+   print '<td>'.AcademicTermPeriod::model()->findByPk($stud_data->student_academic_term_period_tran_id)->academic_term_period.'</td>';
+   print '<td>'.Division::model()->findByPk($stud_data->student_transaction_division_id)->division_name.'</td></tr>';
+
+}
+?>
+</table>
+</div>

@@ -1,0 +1,42 @@
+<?php 
+
+$totalstudent=StudentTransaction::model()->findAllByAttributes( array(),$condition  = 'student_transaction_branch_id = :branch_id AND student_academic_term_period_tran_id = :acm_id AND student_academic_term_name_id = :acm_name_id',
+        $params     = array(
+                ':branch_id' => $_REQUEST['branch_id'], 
+		':acm_id' => $_REQUEST['acm_id'], 
+		':acm_name_id' => $_REQUEST['acm_name_id'], 
+	));
+
+foreach($totalstudent as $t)
+{
+$stud_ids []= Yii::app()->db->createCommand()
+	   ->select('fees_student_id')
+	   ->from('fees_payment_transaction')			    			   
+	   ->where('fees_student_id='.$t['student_transaction_student_id'])
+	   ->queryAll();
+
+}
+
+echo "<h2 align='center'>Branch : ".Branch::model()->findByPk($_REQUEST['branch_id'])->branch_name."<br/>";
+echo "Academic Term Name: ".AcademicTerm::model()->findByPk($_REQUEST['acm_name_id'])->academic_term_name."(".AcademicTermPeriod::model()->findByPk( $_REQUEST['acm_id'])->academic_term_period.")"."</h2>";
+?>
+
+<table>
+<th>Sr.No.</th>
+<th>Name</th>
+<?php
+$i=0;
+foreach($stud_ids as $t)
+{	
+	for($j=0;$j<count($t);$j++)
+	{
+	echo "<tr><td>".++$i."</td>";
+	echo "<td>".StudentInfo::model()->findByPk($t[$j]['fees_student_id'])->student_first_name." ".StudentInfo::model()->findByPk($t[$j]['fees_student_id'])->student_middle_name." ".StudentInfo::model()->findByPk($t[$j]['fees_student_id'])->student_last_name."</td></tr>";
+	}
+}
+	
+?></table>
+
+
+
+

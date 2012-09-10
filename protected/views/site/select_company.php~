@@ -1,0 +1,52 @@
+<<<<<<< HEAD
+=======
+<h3 style ="margin-top:10px;">List of Companies</h3>
+>>>>>>> 7d38c42fedaa58e44e7321aeefdede8d10c7e965
+
+<h3 style ="margin-top:10px;">List of Companies</h3>
+<div class="form">
+<?php
+	 $form=$this->beginWidget('CActiveForm', array(
+	'id'=>'select_company_form',
+	'enableAjaxValidation'=>true,
+	)); 
+?>
+	
+	    <?php echo $form->errorSummary($model); ?>
+	
+	<div class="block-error">
+		<?php echo Yii::app()->user->getFlash('not-select'); ?>
+	</div>
+	<div class="row">
+<?php
+		$listcompany = CHtml::listData($company,'organization_id', 'organization_name');
+
+		echo $form->labelEx($model,'organization_name',array('class'=>'main-select-label'));
+		echo $form->radioButtonList($model,'organization_name',$listcompany,array('template'=>'<span class="rb">{input} {label}</span>'));
+		echo $form->error($model,'organization_name');
+
+
+
+?>
+	</div>
+
+	<div class="row buttons">
+<<<<<<< HEAD
+		<?php echo CHtml::submitButton('Select',array('class'=>'submit','name' => 'select_org')); ?>
+
+=======
+		<?php echo CHtml::submitButton('Select',array('class'=>'submit')); ?>
+>>>>>>> 9348971ff446bc7e6c882e90054d4d833c0a0092
+
+	</div>
+	
+
+
+<?php $this->endWidget(); ?>
+
+</div><!-- form --> 
+
+
+
+
+

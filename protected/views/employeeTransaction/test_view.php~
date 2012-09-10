@@ -1,0 +1,26 @@
+<?php
+        // create tabs
+        $tab_1 = $this->renderPartial('tabs/view_tab1', array('model'=>$model),true);
+        $tab_2 = $this->renderPartial('tabs/view_tab2', array('model'=>$model),true);
+        $tab_3 = $this->renderPartial('tabs/view_tab3', array('model'=>$model),true);
+        $tab_4 = $this->renderPartial('tabs/view_tab5', array('model'=>$model),true);
+
+       
+         $this->widget('zii.widgets.jui.CJuiTabs', array(
+                'tabs'=>array(
+                   'Personal Info' =>array('content'=>$tab_1),
+                   'Guardian Info' =>array('content'=>$tab_2),
+                   'Other Info' =>array('content'=>$tab_3),
+                   'Address Info' =>array('content'=>$tab_4),
+
+
+                ),
+                // additional javascript options for the tabs plugin
+                'options'=>array(
+                        'collapsible'=>true,
+                ),
+        ));
+
+
+     
+?>

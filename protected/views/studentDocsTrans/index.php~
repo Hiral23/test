@@ -1,0 +1,17 @@
+<?php
+$this->breadcrumbs=array(
+	'Student Docs Trans',
+);
+
+$this->menu=array(
+	array('label'=>'Create StudentDocsTrans', 'url'=>array('create')),
+	array('label'=>'Manage StudentDocsTrans', 'url'=>array('admin')),
+);
+?>
+
+<h1>Student Docs Trans</h1>
+
+<?php $this->widget('zii.widgets.CListView', array(
+	'dataProvider'=>$dataProvider,
+	'itemView'=>'_view',
+)); ?>

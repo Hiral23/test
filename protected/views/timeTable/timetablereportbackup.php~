@@ -1,0 +1,120 @@
+<?php
+$this->menu=array(
+	
+	//array('label'=>'', 'url'=>array('create'),'linkOptions'=>array('class'=>'Create','title'=>'Create timetable')),
+	//array('label'=>'', 'url'=>array('admin'),'linkOptions'=>array('class'=>'Manage','title'=>'Manage')),
+);
+$day = array(" ","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday");
+ 
+$nooflec = $model->No_of_Lec;
+$noofbreak = $model->No_Of_Break;
+$timetableid = $model->timetable_id;
+$sum = $nooflec + $noofbreak;
+$branch = Branch::model()->findByPk($model->timetable_branch_id)->branch_name;
+/*$div =TimeTableDetail::model()->findAllByAttributes(array(),
+								$condition  = 'timetable_id = :table_id ', 
+								$params     = array(
+									':table_id' => $timetableid,));*/
+$div = Yii::app()->db->createCommand()
+	    ->selectDistinct('division_id')
+	    ->from('time_table_detail')
+	    ->where('timetable_id='.$timetableid)
+    	    ->queryAll();
+echo CHtml::button('Go Back', array('class'=>'submit','submit' => array('timeTable/admin')));
+
+foreach($div as $div1)
+{									
+
+$time=$model->clg_start_time;
+$time = date('H:i:s A',strtotime($time));
+
+?>
+<h1 align=center><u><?php echo $branch; ?>'s Time Table <?php echo "Division: ".Division::model()->findByPk($div1['division_id'])->division_code;?></u></h1>
+<table id="time-table-struc" align=center border="1" style="width:1340px;font-size:12px;border-collapse:collapse" >
+	<th  align=center>Day/Time</th>
+
+<?php
+$i=0;
+	while($i < $sum)
+	{
+				
+		echo "<th>".$time."-".date('g:i:s A', strtotime($time) + 60*60)."</th>";                	
+		$timestamp = strtotime($time) + 60*60;
+		$time = date('g:i:s A', $timestamp);
+		$i++;
+	}
+?>	
+	
+<?php
+$temp=0;
+
+$break="";
+for($i=1;$i<count($day);$i++)
+{
+echo "<tr>";
+
+echo "<td>".$day[$i]."</td>";
+
+		
+	for($j=1;$j<=$sum;$j++)
+	  {
+		$subname="";
+		$room="";
+		$faculty="";
+		
+		if($break)
+		{
+			$td = "<td align=center >Break</td>";	
+			echo $td;
+			$break="";
+			
+		}
+
+		
+		$result=TimeTableDetail::model()->findAllByAttributes(
+								array(),
+								$condition  = 'timetable_id = :table_id AND day = :day AND lec = :lec AND division_id = :div_id',
+								$params     = array(
+									':table_id' => $timetableid,
+									':day' => $i,
+						 			':lec' => $j,
+									':div_id' =>$div1['division_id'],
+									));
+		$break=NoOfBreakTable::model()->findAllByAttributes(
+								array(),
+								$condition  = 'timetable_id = :table_id AND day = :day AND after_lec_break = :lec AND div_id = :div_id',
+								$params     = array(
+									':table_id' => $timetableid,
+									':day' => $j,
+						 			':lec' => $i,
+									':div_id' =>$div1['division_id'],
+									));
+		
+		
+		if($result)
+		{
+			echo "<td align=center>";
+			foreach($result as $check)
+			{
+				$subname = SubjectMaster::model()->findByPk($check->subject_id)->subject_master_name;
+				$room="(Room Name:".RoomDetailsMaster::model()->findByPk($check->room_id)->room_name.")";	
+				$faculty="(Faculty Name:".EmployeeInfo::model()->findByPk($check->faculty_emp_id)->employee_first_name.")";
+				echo "</br>".$subname."</br>".$room."</br>".$faculty;
+			}
+			echo "</td>";
+		}
+		else
+		{
+			echo "<td align=center>".$subname."</br>".$room."</br>".$faculty."</td>";		
+			
+		}
+		
+			
+		
+		
+	  }
+echo "</tr>";
+}
+echo "</table>";
+}
+?>

@@ -1,0 +1,529 @@
+<?php
+
+class TimeTableController extends RController
+{
+	/**
+	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
+	 * using two-column layout. See 'protected/views/layouts/column2.php'.
+	 */
+	
+
+	public $layout='//layouts/column2';
+
+	/**
+	 * @return array action filters
+	 */
+	public function filters()
+	{
+		return array(
+			'rights', // perform access control for CRUD operations
+		);
+	}
+
+	/**
+	 * Specifies the access control rules.
+	 * This method is used by the 'accessControl' filter.
+	 * @return array access control rules
+	 *//*
+	public function accessRules()
+	{
+		return array(
+			array('allow',  // allow all users to perform 'index' and 'view' actions
+				'actions'=>array('index','view','
+table','facultylist','CreateFinaltable','getItemName','employee_timetable', 'Timetable_report'),
+				'users'=>array('*'),
+			),
+			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+				'actions'=>array('create','update'),
+				'users'=>array('@'),
+			),
+			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+				'actions'=>array('admin','delete'),
+				'users'=>array('@'),
+			),
+			array('deny',  // deny all users
+				'users'=>array('*'),
+			),
+		);
+	}
+*/
+	/**
+	 * Displays a particular model.
+	 * @param integer $id the ID of the model to be displayed
+	 */
+	public function actionView($id)
+	{
+		$this->render('view',array(
+			'model'=>$this->loadModel($id),
+		));
+	}
+
+	/**
+	 * Creates a new model.
+	 * If creation is successful, the browser will be redirected to the 'view' page.
+	 */
+	public function actionCreate()
+	{
+		$model=new TimeTable;
+		$duration = new LecDuration;
+		// Uncomment the following line if AJAX validation is needed
+		$this->performAjaxValidation($model);
+		
+		if(isset($_POST['TimeTable']))
+		{
+			
+			function hoursToMinutes($hours)
+			{
+			    $minutes = 0;
+			    if (strpos($hours, ':') !== false)
+			    {
+				// Split hours and minutes.
+			        list($hours, $minutes) = explode(':', $hours);
+			    }
+			    return $hours * 60 + $minutes;
+			}
+			$model->attributes=$_POST['TimeTable'];
+			$minute = hoursToMinutes($_POST['TimeTable']['lec_duration']);
+			$model->lec_duration=$minute;
+			
+			$model->created_by =  Yii::app()->user->id;
+			$model->creation_date = new CDbExpression('NOW()');
+			$model->time_table_organization_id = Yii::app()->user->getState('org_id');
+			if($model->save(false))
+			{
+			$startk = 1;
+			if($model->zero_lec==1)
+			{
+				$startk = 0;
+			}
+			for($i=$startk;$i<=$model->No_of_Lec;$i++)			
+			{
+			$duration->setIsNewRecord(true);
+			$duration->id=null;
+			$duration->lecture = $i;
+			$duration->duration = $minute;
+			$duration->timetable_id = $model->timetable_id;
+			$duration->lec_duration_org_id = Yii::app()->user->getState('org_id');
+			$duration->created_by =  Yii::app()->user->id;
+			$duration->creation_time = new CDbExpression('NOW()');
+			$duration->save(false);
+			}	
+			$this->redirect(array('createtable','id'=>$model->timetable_id));
+			}
+		}
+
+		$this->render('create',array(
+			'model'=>$model,
+		));
+	}
+	
+	public function actionCreatetable($id)
+	{		
+		$model=TimeTable::model()->findByPk($id);
+		$this->layout='timetable_layout';
+		$this->render('final_timetable',array(
+			'model'=>$model,
+			));
+	}
+
+	//for take selected faculty
+
+	public function actionEmployee_timetable($id)
+	{		
+		$employeetimetable= new EmployeeTimetable;
+		if(isset($_POST['EmployeeTransaction']['new']))
+		{
+			foreach($_POST['EmployeeTransaction']['new'] as $eid)
+			{
+				$employeetimetable->setIsNewRecord(true);
+				$employeetimetable->id=null;				
+				$employeetimetable->employee_id=$eid;
+				$employeetimetable->timetable_id=$_REQUEST['id'];
+				$employeetimetable->employee_timetable_organization_id = Yii::app()->user->getState('org_id');				
+				$employeetimetable->save();
+				
+			}
+			$this->redirect(array('CreateFinaltable','id'=>$employeetimetable->timetable_id));
+		}
+		else
+		{
+			//$employeetimetable->addError('Error',"None of employee selected");
+			$model=TimeTable::model()->findByPk($_REQUEST['id']);
+			Yii::app()->user->setFlash('not-select-employee', "Please select atleast one employee");
+			$this->render('facultylist',array(
+				'model'=>$model,
+				));
+		}
+	}
+	
+	public function actionCreateFinaltable($id)
+	{	
+		$this->layout='timetable_layout';	
+		$model=TimeTable::model()->findByPk($id);
+		//$extralecmodel = new ExtralecTimetable;
+
+		/*$this->render('final_timetable',array(
+			'model'=>$model,'extralecmodel'=>$extralecmodel,
+		));*/
+		$this->render('final_timetable',array(
+			'model'=>$model,
+		));
+	}
+	
+//for student timetable report
+	public function actionTimetable_report($id)
+	{		
+		$this->layout='timetable_layout';		
+		$model=TimeTable::model()->findByPk($id);
+		
+		$this->render('Timetable_report_form',array(
+			'model'=>$model,
+			));
+	}
+	
+	// for faculty master report
+	public function actionMasterTableReport()
+	{
+		$this->layout='timetable_layout';	
+		$model=new TimeTable;
+		
+		$this->render('master_table_report',array(
+			'model'=>$model,
+			));		
+	}
+//BranchwiseReport
+	public function actionBranchwiseReport()
+	{
+		//$this->layout='timetable_layout';	
+		$model=new TimeTable;
+		if(!empty($_POST['TimeTable']['timetable_acdm_period']) && !empty( $_POST['TimeTable']['timetable_acdm_term']) && !empty( $_POST['TimeTable']['timetable_division']))
+		{
+			$this->layout='timetable_layout';
+			
+			$this->render('branch_report_view',array('acdm_period'=>$_POST['TimeTable']['timetable_acdm_period'],'acdm_name'=>$_POST['TimeTable']['timetable_acdm_term'],'branch'=>$_POST['TimeTable']['timetable_branch'],'division'=>$_POST['TimeTable']['timetable_division'],'timetable_id'=>$_REQUEST['id']));			
+		
+		}
+		else
+		{
+		$this->render('branch_report_form',array(
+			'model'=>$model,
+			));		
+		}
+	}
+
+
+	public function actionFacultyPersonalTimetable()
+	{
+		$this->layout='timetable_layout';	
+		$model=new TimeTable;
+		
+		$this->render('faculty_personal_timetable',array(
+			'model'=>$model,
+			));		
+	}
+	
+	public function actionStudentPersonalTimetable()
+	{
+		$this->layout='timetable_layout';	
+		$model=new TimeTable;
+		
+		$this->render('student_personal_timetable',array(
+			'model'=>$model,
+			));		
+	}
+
+	public function actionRoomMasterReport()
+	{
+		$this->layout='timetable_layout';	
+		$model=new TimeTable;
+		
+		$this->render('room_master_report',array(
+			'model'=>$model,
+			));		
+	}
+
+	public function actionRoomReport()
+	{
+		$this->layout='timetable_layout';	
+		$model=new TimeTable;
+		
+		$this->render('room_report',array(
+			'model'=>$model,
+			));		
+	}
+
+	public function actionDeleteSubjectRecord()
+	{
+		if($_REQUEST['timetableid'])
+		{
+			TimeTableDetail::model()->deleteAll( 
+					$condition  = 'timetable_id = :table_id AND faculty_emp_id = :faculty_emp_id AND day =:day AND lec =:lec',
+					$params     = array(
+						':table_id' => $_REQUEST['timetableid'], 
+						':faculty_emp_id' => $_REQUEST['faculty_emp_id'],
+						':day' => $_REQUEST['day'],
+						':lec' => $_REQUEST['lec'],
+					));
+		}
+			$this->redirect(array('CreateFinaltable','id'=>$_REQUEST['timetableid']));
+		
+	}
+	/*public function actionDeleteFacultyRecord()
+	{
+		
+			TimeTableDetail::model()->deleteAll( 
+					$condition  = 'timetable_id = :table_id AND faculty_emp_id = :faculty_emp_id',
+					$params     = array(
+						':table_id' => $_REQUEST['timetableid'], 
+						':faculty_emp_id' => $_REQUEST['faculty_emp_id'],
+					));
+			EmployeeTimetable::model()->deleteAll( 
+					$condition  = 'timetable_id = :table_id AND employee_id = :faculty_emp_id',
+					$params     = array(
+						':table_id' => $_REQUEST['timetableid'], 
+						':faculty_emp_id' => $_REQUEST['faculty_emp_id'],
+					));
+			$this->redirect(array('CreateFinaltable','id'=>$_REQUEST['timetableid']));
+		
+	}
+
+	public function actionEmployeelist($id)
+	{
+		//$this->layout='timetable_layout';		
+		$model=TimeTable::model()->findByPk($id);
+		$this->performAjaxValidation($model);
+		if(!empty($_POST['TimeTable']['faculty_id']))
+		{
+			$model->attributes=$_POST['TimeTable'];			
+			$this->redirect(array('faculty_timetable_report','id'=>$_REQUEST['id'],'faculty_id'=>$_POST['TimeTable']['faculty_id']));
+
+		}
+		else
+		{
+			Yii::app()->user->setFlash('not-select-employee', "Please select atleast one employee");
+			$this->render('employeelist',array(
+			'model'=>$model,
+			));
+		}
+		
+	}*/
+	public function actionFaculty_timetable_report($id)
+	{
+		$this->layout='timetable_layout';		
+		$model=TimeTable::model()->findByPk($id);
+		
+		$this->render('faculty_timetable_report',array(
+			'model'=>$model,
+			));
+	}
+
+	/**
+	 * Updates a particular model.
+	 * If update is successful, the browser will be redirected to the 'view' page.
+	 * @param integer $id the ID of the model to be updated
+	 */
+	public function actionUpdate($id)
+	{
+		$model=$this->loadModel($id);
+		$duration = new LecDuration;
+		
+		// Uncomment the following line if AJAX validation is needed
+		 $this->performAjaxValidation($model);
+
+		if(isset($_POST['TimeTable']))
+		{
+			LecDuration::model()->deleteAll( 
+					$condition  = 'timetable_id = :table_id',
+					$params     = array(
+						':table_id' => $id, 
+					));
+			function hoursToMinutes($hours)
+			{
+			    $minutes = 0;
+			    if (strpos($hours, ':') !== false)
+			    {
+				// Split hours and minutes.
+			        list($hours, $minutes) = explode(':', $hours);
+			    }
+			    return $hours * 60 + $minutes;
+			}
+			$model->attributes=$_POST['TimeTable'];
+			$minute = hoursToMinutes($_POST['TimeTable']['lec_duration']);
+			$model->lec_duration=$minute;
+			
+			$startk = 1;
+			if($model->zero_lec==1)
+			{
+				$startk = 0;
+				
+			}
+			
+			if($model->save(false))
+			{
+				
+				
+				for($i=$startk;$i<=$model->No_of_Lec;$i++)			
+				{
+				$duration->setIsNewRecord(true);
+				$duration->id=null;
+				$duration->lecture = $i;
+				$duration->duration = $minute;
+				$duration->timetable_id = $model->timetable_id;
+				$duration->save(false);
+				}	
+			$this->redirect(array('createtable','id'=>$model->timetable_id));
+			}
+		}
+
+		$this->render('update',array(
+			'model'=>$model,
+		));
+	}
+
+	/**
+	 * Deletes a particular model.
+	 * If deletion is successful, the browser will be redirected to the 'admin' page.
+	 * @param integer $id the ID of the model to be deleted
+	 */
+	public function actionDelete($id)
+	{
+		if(Yii::app()->request->isPostRequest)
+		{
+			// we only allow deletion via POST request
+			$this->loadModel($id)->delete();
+			TimeTableDetail::model()->deleteAll( 
+					$condition  = 'timetable_id = :table_id',
+					$params     = array(
+						':table_id' => $id, 
+					));
+			EmployeeTimetable::model()->deleteAll( 
+					$condition  = 'timetable_id = :table_id',
+					$params     = array(
+						':table_id' => $id, 
+					));
+			NoOfBreakTable::model()->deleteAll( 
+					$condition  = 'timetable_id = :table_id',
+					$params     = array(
+						':table_id' => $id, 
+					));
+			/*ExtralecTimetable::model()->deleteAll( 
+					$condition  = 'timetable_id = :table_id',
+					$params     = array(
+						':table_id' => $id, 
+					));*/
+	
+			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			if(!isset($_GET['ajax']))
+				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+		}
+		else
+			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+	}
+
+	/**
+	 * Lists all models.
+	 */
+	public function actionIndex()
+	{
+		
+	/*	$dataProvider=new CActiveDataProvider('TimeTable');
+		$this->render('index',array(
+			'dataProvider'=>$dataProvider,
+		));*/
+		$model=new TimeTable('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['TimeTable']))
+			$model->attributes=$_GET['TimeTable'];
+
+		$this->render('admin',array(
+			'model'=>$model,
+		));
+		
+
+	}
+
+	/**
+	 * Manages all models.
+	 */
+	public function actionAdmin()
+	{
+		$model=new TimeTable('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['TimeTable']))
+			$model->attributes=$_GET['TimeTable'];
+
+		$this->render('admin',array(
+			'model'=>$model,
+		));
+	}
+
+	/**
+	 * Returns the data model based on the primary key given in the GET variable.
+	 * If the data model is not found, an HTTP exception will be raised.
+	 * @param integer the ID of the model to be loaded
+	 */
+	public function loadModel($id)
+	{
+		$model=TimeTable::model()->findByPk($id);
+		if($model===null)
+			throw new CHttpException(404,'The requested page does not exist.');
+		return $model;
+	}
+
+	/**
+	 * Performs the AJAX validation.
+	 * @param CModel the model to be validated
+	 */
+	protected function performAjaxValidation($model)
+	{
+		if(isset($_POST['ajax']) && $_POST['ajax']==='time-table-form')
+		{
+			echo CActiveForm::validate($model);
+			Yii::app()->end();
+		}
+	}
+	
+	// for making dependent dropdown
+	/*public function actiongetItemName()
+        {
+            $data=  AcademicTerm::model()->findAll('academic_term_period_id=:academic_term_period_id',
+		 array(':academic_term_period_id'=>(int) $_REQUEST['TimeTable']['timetable_acdm_term_period_id']));
+                  
+            $data=CHtml::listData($data,'academic_term_id','academic_term_name');	
+         foreach($data as $value=>$name)
+            {
+		echo CHtml::tag('option',
+                        array('value'=>$value),CHtml::encode($name),true);
+            }
+        }*/
+
+	public function actiongetItemName()
+        {
+            $data=  AcademicTerm::model()->findAll('academic_term_period_id=:academic_term_period_id',
+		 array(':academic_term_period_id'=>(int) $_REQUEST['TimeTable']['timetable_acdm_period']));
+                  
+            $data=CHtml::listData($data,'academic_term_id','academic_term_name');
+            foreach($data as $value=>$name)
+            {
+                echo CHtml::tag('option',
+                        array('value'=>$value),CHtml::encode($name),true);
+            }
+        }
+
+	public function actiongetItemName1()
+        {
+            //$data=  Division::model()->findAll('branch_id=:branch_id',
+		// array(':branch_id'=>(int) $_REQUEST['FeesPaymentTransaction']['fees_branch'],));
+		$org_id=Yii::app()->user->getState('org_id');
+
+		$data=Division::model()->findAll(array('condition'=>'branch_id='.(int) $_REQUEST['TimeTable']['timetable_branch'].' and 	academic_name_id='.$_REQUEST['TimeTable']['timetable_acdm_term'].' and division_organization_id='.$org_id));
+                  	
+            $data=CHtml::listData($data,'division_id','division_code');
+            foreach($data as $value=>$name)
+            {
+                echo CHtml::tag('option',
+                        array('value'=>$value),CHtml::encode($name),true);
+            }
+        }
+	
+}

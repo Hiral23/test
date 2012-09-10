@@ -1,0 +1,5 @@
+<?php
+echo "Hello";
+//echo $_REQUEST['id'];
+echo $_REQUEST['organization_name'];
+?>

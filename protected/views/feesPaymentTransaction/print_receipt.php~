@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+
+<html>
+<head>
+	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
+	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/sal.css" media="screen, print, projection" />
+
+</head>
+<body>
+   
+
+<div id="firstlayer">
+       <div class="part1">
+            <!------------------------header part--------------------->
+	    <div class="headerpart1">
+               <div><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/rudraSoftech.png"  class="logo"/></div>
+
+              <!-- <div class="institutename"><span id="firstletter">S</span>AL <span id="firstletter">I</span>NSTITUTE OF   <span id="firstletter">T</span>ECHNOLOGY &</div> 
+               <div class="engineering"><span id="firstletter">e</span>nginerring <span id="firstletter">r</span>esearch</div>  -->
+                  <div class="institutename"></div> 
+               <div class="title">HANSABA COLLEGE OF ENGINEERING AND TECHNOLOGY, SIDHHPUR</div>
+	       <div class="address">	Mehsana-Palanpur State Highway no 41, Sidhhpur, Dist: Patan</div>
+            </div>
+
+	   <!------------------------content part------------------------->
+   	
+	    <div class="contentpart1">
+	     
+	 <div class="receipt">receipt</div>
+           <div class="receipt_header"></div>   
+		<div class="rcp_info">
+			<div class="rcp_rno">
+				<div class="rno">Receipt No.</div>
+                       	        <div class="rnoline">
+                                <span class="number output"><?php echo $fees_payment->fees_receipt_id; ?></span></div>
+			</div>
+
+			<div class="rcp_date">
+				<div class="rdate">date</div>
+				<div class="dateline">
+				<span class="output"><?php echo date('d/m/Y'); ?></span></div>
+			</div>
+                        
+		</div>
+		
+		<div class="rcp_info">
+                	<span class="sname leftspace">Received from Mr./Ms.</span>
+			<div class="nameline">
+			<span class="output"><?php echo $stud_model->student_first_name .' '.$stud_model->student_last_name; ?></span></div>
+		</div>
+                <div class="rcp_info">
+ 			<div class="sem">of Semester - </div>
+			<div class="semline sem_no">
+			<span class="output"></span></div>
+		        <span class="sem">in</span>
+			<div class="semline branch_name">
+                        <span class="output"></span><?php echo $branch->branch_name; ?></div>
+			<span class="sem">Engineering on account of following vide</span>
+                </div>
+		<div class="rcp_info">
+			<span class="dd">Cheque/DD No.</span>
+			<div class="ddline">
+		        <span class="output"></span></div>
+			<span class="dd">dated</span>
+                        <div class="ddline">
+			<span class="output"></span></div>
+			<span class="dd">drawn on</span>
+                        <div class="ddline drawn_on">
+			<span class="output"></span></div>
+                        
+		</div>
+		
+		
+           
+	   <div class="rcp_info">
+			<span class="branch">branch</span>
+			<div class="branchline">
+			<span class="output"><?php echo $branch->branch_name; ?></span></div>
+
+			<span class="branch">being payment towards</span>
+			<div class="branchline">
+			<span class="output">Following Fees</span></div>
+			<span class="branch">Roll No.</span> 
+			<div class="branchline branch_on">
+			<span class="output"><?php echo $stud_model->student_roll_no; ?></span></div>
+
+		
+					
+		</div>
+		<div class="rcp_info">
+
+			<span class="semperiod space">sem period</span>
+			<div class="periodline">
+			<span class="output"><?php echo $acd_term->academic_terms_period_name ?></span></div>
+		</div>
+		
+
+
+      <div class="tablepart1">
+
+      <table>
+          <tr>
+             <th width="5%">Sr No.</th>
+             <th>Particulars</th>
+             <th>Amount(Rs.)</th>
+	  	</tr>
+<?php 
+		$result = FeesMasterTransaction::model()->findAllByAttributes(array('fees_master_id'=>$fees_payment->fees_payment_master_id));
+		foreach($result as $list)
+		{
+?>
+
+		 		 <tr id="purticular">
+             			<td>
+				</td>
+            			 <td id="purticular">
+				<?php if(!empty($list))
+				{
+					echo FeesDetailsTable::model()->findByPk($list->fees_desc_id)->fees_details_name;
+				
+				?>
+				</td>
+          			<td><?php echo FeesDetailsTable::model()->findByPk($list->fees_desc_id)->fees_details_amount; } ?></td>
+			  	</tr>
+<?php } ?>         
+		 
+                 <tr id="purticular">
+             <td>-</td>
+             <td id="total">TOTAL</td>
+			 <td><?php echo FeesMaster::model()->findByPk($fees_payment->fees_payment_master_id)->fees_master_total; ?></td>
+			 
+	</tr>
+      		
+</table>
+        <br />
+        <br />
+        <br />
+
+	<div class="tablepart2">
+	<table>
+	<tr>
+	<th width="5%">Detail </th>
+	</tr>	
+          <tr>
+               <th  width="5%">Sr No.</th>
+               <th>Payment Method</th>
+	     <th>Amount.(Rs)</th>		  
+	</tr> 
+	 		<tr>
+	   			
+					 <tr id="purticular1">
+             				 <td></td>
+            			 	 <td id="purticular1">CASH</td>
+             				<td><?php echo $cash_amt->fees_payment_cash_amount; ?></td>
+	  		</tr>				
+					 		  
+	
+	
+	
+       </table>
+
+	</div>
+	</div>
+<?php include('NumbWordter.php'); ?>
+	    <div class="footerpart1">
+		
+		<div class="rcp_info">
+                	<span class="rsinword space">in word rs :</span>
+				<div class="rsline">
+				<span class="output">
+				<?php 
+					$amt = $cash_amt->fees_payment_cash_amount;
+					$myConverter = new NumbWordter(); //initialize
+					$text=$myConverter->convert($cash_amt->fees_payment_cash_amount); //pass the number you want to convert
+					echo $text; //will print the words
+				?>
+				 Only</span></div>
+		</div>
+				<div class="rcp_info">
+         				<span class="payment">The above payments are : </span>
+                  </div>   
+
+                
+
+			<ul>
+              			<li>Subject to change by Govt / AICTE / University / Management /Fee Technical committee </li>
+              			<li>Subject to verification of all original documents</li>
+              			<li>Subject to approval from Management </li>
+              			<li>Subject to necessary approval & Formalities as per rules & regulation of the institute </li>
+              			<li>Subject to realization of Cheque/DD </li>
+           		</ul>
+			<div class="deposite">N.B. Deposit Will be refunded after completion of the course on production of original receipt.</div>
+		        <div class="ins_eng">FOR, </div>
+                        <div><img src="images/sal.gif" class="square"/></div>
+                         <div class="sign">authorised signatory</div>
+	    </div>
+	 
+       </div>
+   </div>
+   </div>
+</body>
+</html>

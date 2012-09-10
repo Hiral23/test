@@ -1,0 +1,56 @@
+<div class="form5">
+       <?php echo ('<b><u>Employee Experience :</u></b>'); ?>
+   </div>
+
+ <div class="form5">
+       <?php echo (' '); ?>
+  </div>
+<?php
+
+// see http://www.yiiframework.com/doc/guide/1.1/en/form.table
+// Note: Can be a route to a config file too,
+//       or create a method 'getMultiModelForm()' in the member model
+
+$memberFormConfig = array(
+     'elements'=>array(
+       'employee_experience_organization_name'=>array(
+           'type'=>'text',
+           'maxlength'=>40,
+       ),
+      'employee_experience_designation'=>array(
+           'type'=>'text',
+           'maxlength'=>40,      
+       ),
+
+   /*  'membersince'=>array(
+           'type'=>'dropdownlist',
+           //it is important to add an empty item because of new records
+           'items'=>array(''=>'-',2009=>2009,2010=>2010,2011=>2011,),
+       ),*/
+   ));
+$this->widget('ext.multimodelform.MultiModelForm',array(
+       'id' => 'id_member', //the unique widget id
+       'formConfig' => $memberFormConfig, //the form configuration array
+       'emp_exp'=>$emp_exp, //instance of the form model
+     
+   ));
+?>
+
+<div class="row buttons">
+   <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+</div>	      
+
+	       
+
+
+	      
+
+
+	       
+
+
+	      
+
+
+	      
+	 

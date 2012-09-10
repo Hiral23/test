@@ -1,0 +1,94 @@
+<?php
+$this->breadcrumbs=array(
+	'Branchwise TimeTable Generation',	
+);
+echo "</br>";
+echo CHtml::link('GO BACK',Yii::app()->createUrl('timeTable/admin'));
+?>
+</br>
+
+<div class="form">
+
+<?php $form=$this->beginWidget('CActiveForm', array(
+	'id'=>'time-table-form',
+	'enableAjaxValidation'=>true,
+	
+)); ?>
+
+	
+<?php Yii::app()->user->getFlash('select-field'); ?>
+	<?php echo $form->errorSummary($model); ?>
+<?php  $org_id=Yii::app()->user->getState('org_id'); ?>
+	<div class="row">
+	
+        <?php echo $form->labelEx($model,'timetable_acdm_period'); ?>
+        
+	<?php
+			echo $form->dropDownList($model,'timetable_acdm_period',AcademicTermPeriod::items(),
+			array(
+			'prompt' => '-----------Select-----------','tabindex'=>21,
+			'ajax' => array(
+			'type'=>'POST', 
+			'url'=>CController::createUrl('TimeTable/getItemName'), 
+			'update'=>'#TimeTable_timetable_acdm_term', //selector to update
+			
+			))); 
+			 
+			?><span class="status">&nbsp;</span>
+        <?php echo $form->error($model,'timetable_acdm_period'); ?>
+	</div>
+	<div class="row">
+		<?php echo $form->labelEx($model,'timetable_acdm_term'); ?>
+	        <?php //echo $form->dropDownList($model,'student_academic_term_name_id',array()); ?>
+		<?php 
+			echo $form->dropDownList($model,'timetable_acdm_term',array('prompt' => '-----------Select-----------'),array('tabindex'=>22)); 
+		?><span class="status">&nbsp;</span>
+		<?php echo $form->error($model,'timetable_acdm_term'); ?>
+	</div>	
+	<div class="row">
+		<?php echo $form->labelEx($model,'timetable_branch'); ?>
+		<?php //echo $form->textField($model,'acdm_name_id'); ?>
+		
+		<?php
+			echo $form->dropDownList($model,'timetable_branch',
+				CHtml::listData(Branch::model()->findAll(array('condition'=> 'branch_organization_id='.$org_id)),'branch_id','branch_name'),
+				array(
+				'prompt' => '-----------Select-----------','tabindex'=>2,
+				'ajax' => array(
+				'type'=>'POST', 
+				'url'=>CController::createUrl('TimeTable/getItemName1'),	 	
+				'update'=>'#TimeTable_timetable_division', //selector to update
+				
+				)));
+			 
+			 
+		?><span class="status">&nbsp;</span>
+		<?php echo $form->error($model,'timetable_branch'); ?>
+	</div>
+
+	
+	
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'timetable_division'); ?>
+		<?php 
+			
+			
+				echo $form->dropDownList($model,'timetable_division',array(),array('empty'=>'-----------Select-----------','tabindex'=>3)); 
+		?><span class="status">&nbsp;</span>
+		<?php echo $form->error($model,'timetable_division'); ?>
+	</div>
+
+
+	
+	
+	<div class="row buttons">
+		<?php echo CHtml::submitButton('search', array('class'=>'submit'));
+			//echo CHtml::button('search',array('class'=>'submit','submit'=>array('')); 
+		?>
+	</div>
+
+<?php $this->endWidget(); ?>
+
+</div><!-- form -->
+

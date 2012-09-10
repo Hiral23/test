@@ -1,0 +1,43 @@
+<h2>List of Companies</h2>
+
+<?php
+
+	 $form=$this->beginWidget('CActiveForm', array(
+	'id'=>'select_company_form',
+	'enableAjaxValidation'=>true,
+	)); 
+?>
+	<div>
+	    <?php echo $form->errorSummary($model); ?>
+	</div>
+	
+<?php
+		$listcompany = CHtml::listData($company,'organization_id', 'organization_name');
+
+		echo $form->labelEx($model,'organization_name');
+		echo $form->radioButtonList($model,'organization_name',$listcompany);
+		echo $form->error($model,'organization_name');
+
+?>
+	<div>
+	    <?php echo $form->errorSummary($model); ?>
+	</div>
+
+	<div>
+	    &nbsp;
+	</div>
+
+	<div class="row1 buttons">
+		<?php echo CHtml::submitButton('Post'); ?>
+	</div>
+	
+
+
+<?php $this->endWidget(); ?>
+
+</div><!-- form --> 
+
+
+
+
+

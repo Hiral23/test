@@ -1,0 +1,12 @@
+<?php
+$this->breadcrumbs=array(
+	'Error Page',
+);
+
+
+echo "No batch available for this critaria.. Please create batch with  <br /><br />";
+echo CHtml::link('GO BACK',Yii::app()->createUrl('CreateFinaltable/'.$_REQUEST['timetableid'])); 
+
+?>
+
+

@@ -1,0 +1,38 @@
+<div class="form">
+
+<?php $form=$this->beginWidget('CActiveForm', array(
+	'id'=>'assign-subject-form',
+	'enableAjaxValidation'=>true,
+	'clientOptions'=>array('validateOnSubmit'=>true),
+)); ?>
+
+	<p class="note">Fields with <span class="required">*</span> are required.</p>
+
+	<?php //echo $form->errorSummary($model); ?>
+
+	<div class="big-row">
+		<?php echo $form->labelEx($model,'subject_id'); ?>
+		<?php echo $form->ListBox($model,'subject_id',SubjectMaster::items(),array('multiple' => 'multiple')); ?><span class="status">&nbsp;</span>
+		<?php echo $form->error($model,'subject_id'); ?>
+	</div>
+
+	<div class="big-row">
+		<?php echo $form->labelEx($model,'subject_faculty_id'); ?>
+		<?php echo $form->ListBox($model,'subject_faculty_id',EmployeeInfo::items(),array('multiple' => 'multiple')); ?><span class="status">&nbsp;</span>
+		<?php echo $form->error($model,'subject_faculty_id'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'active'); ?>
+		<?php echo $form->dropDownList($model,'active',array(1=>'Active',0=>'Inactive'), array('empty' => '-----------Select---------')); ?><span class="status">&nbsp;</span>
+		<?php echo $form->error($model,'active'); ?>
+	</div>
+
+	
+	<div class="row buttons">
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save',array('class'=>'submit')); ?>
+	</div>
+
+<?php $this->endWidget(); ?>
+
+</div><!-- form -->

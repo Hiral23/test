@@ -1,0 +1,100 @@
+<?php
+$this->breadcrumbs=array(
+	'Fees Masters'=>array('admin'),
+	'Manage',
+);
+
+$this->menu=array(
+/*	array('label'=>'List FeesMaster', 'url'=>array('index')),*/
+	array('label'=>'', 'url'=>array('create'),'linkOptions'=>array('class'=>'Create','title'=>'Create')),
+	//array('label'=>'', 'url'=>array('generatefees'),'linkOptions'=>array('class'=>'Manage','title'=>'Generate All Fees')),
+
+);
+
+Yii::app()->clientScript->registerScript('search', "
+$('.search-button').click(function(){
+	$('.search-form').toggle();
+	return false;
+});
+$('.search-form form').submit(function(){
+	$.fn.yiiGridView.update('fees-master-grid', {
+		data: $(this).serialize()
+	});
+	return false;
+});
+");
+?>
+
+<h1>Manage Fees</h1>
+
+<!--<p>
+You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
+or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
+</p>-->
+
+<?php //echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
+<div class="search-form" style="display:none">
+<?php $this->renderPartial('_search',array(
+	'model'=>$model,
+)); ?>
+</div><!-- search-form -->
+
+<?php
+$dataProvider = $model->search();
+$pageSize = Yii::app()->user->getState("pageSize",@$_GET["pageSize"]);
+$dataProvider->getPagination()->setPageSize($pageSize);
+?>
+
+
+<?php $this->widget('zii.widgets.grid.CGridView', array(
+	'id'=>'fees-master-grid',
+	'dataProvider'=>$dataProvider,
+	'filter'=>$model,
+	'columns'=>array(
+		array(
+		'header'=>'SN.',
+		'class'=>'IndexColumn',
+		),
+		//'fees_master_id',
+		'fees_master_name',
+		/*
+		array(
+                'name'=>'branch_name',
+//                'type'=>'raw',		
+                'value'=> '$data->Rel_fees_branch->branch_name',
+	          ),*/
+		array(
+		'name'=>'quota_name',
+//                'type'=>'raw',		
+                'value'=> '$data->Rel_fees_quota->quota_name',
+	          ),		
+		/*'fees_master_created_by',
+		'fees_master_created_date',
+		'fees_master_tally_id',
+		'fees_organization_id',
+		'fees_branch_id',
+		'fees_academic_term_id',
+		'fees_quota_id',
+		*/
+		array(
+			'class'=>'CButtonColumn',
+			'template' => '{view} {update} {delete} {Add Fees}',
+	                'buttons'=>array(
+                        'Add Fees' => array(
+                                'label'=>'Add Fees Details', // text label of the button
+//                                'url'=>"CHtml::normalizeUrl(array('feesMasterTransaction/create','id'=>model->fees_master_id))",
+				  'url'=>'Yii::app()->createUrl("feesMasterTransaction/create", array("id"=>$data->fees_master_id))',
+                                'imageUrl'=> Yii::app()->baseUrl.'/images/add.jpeg',  // image URL of the button. If not set or false, a text link is used
+                               'options' => array('class'=>'fees'), // HTML options for the button
+                        ),
+                ),
+
+		),
+	),
+	'pager'=>array(
+			'class'=>'AjaxList',
+			'maxButtonCount'=>25,
+			'header'=>''
+	),
+
+)); ?>

@@ -1,0 +1,17 @@
+<?php
+$this->breadcrumbs=array(
+	'Employee Docs Trans',
+);
+
+$this->menu=array(
+	array('label'=>'Create EmployeeDocsTrans', 'url'=>array('create')),
+	array('label'=>'Manage EmployeeDocsTrans', 'url'=>array('admin')),
+);
+?>
+
+<h1>Employee Docs Trans</h1>
+
+<?php $this->widget('zii.widgets.CListView', array(
+	'dataProvider'=>$dataProvider,
+	'itemView'=>'_view',
+)); ?>

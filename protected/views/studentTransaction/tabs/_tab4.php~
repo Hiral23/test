@@ -1,0 +1,69 @@
+<!--
+    <div class="form3">
+        <?php echo $form->labelEx($model,'student_transaction_organization_id'); ?>
+        <?php echo $form->textField($model,'student_transaction_organization_id'); ?>
+        <?php echo $form->error($model,'student_transaction_organization_id'); ?>
+    </div>
+
+    <div class="form3">
+        <?php echo $form->labelEx($model,'student_transaction_student_address_id'); ?>
+        <?php echo $form->textField($model,'student_transaction_student_address_id'); ?>
+        <?php echo $form->error($model,'student_transaction_student_address_id'); ?>
+    </div>
+-->
+
+    <div class="rowk">
+        <?php echo $form->labelEx($model,'student_transaction_batch_id'); ?>
+        <?php echo $form->dropDownList($model,'student_transaction_batch_id',Batch::items(), array('empty' => '-----------Select---------')); ?>
+        <?php echo $form->error($model,'student_transaction_batch_id'); ?>
+    </div>
+
+
+
+    <div class="row">
+        <?php echo $form->labelEx($model,'student_transaction_shift_id'); ?>
+        <?php echo $form->dropDownList($model,'student_transaction_shift_id',Shift::items(), array('empty' => '-----------Select---------')); ?>
+        <?php echo $form->error($model,'student_transaction_shift_id'); ?>
+    </div>
+<!--
+    <div class="form3">
+        <?php echo $form->labelEx($model,'student_transaction_languages_known_id'); ?>
+        <?php echo $form->textField($model,'student_transaction_languages_known_id',array('size'=>23,'maxlength'=>30)); ?>
+        <?php echo $form->error($model,'student_transaction_languages_known_id'); ?>
+    </div>
+-->
+
+    <div class="rowk">
+	<?php echo $form->labelEx($lang,'languages_known2');?>
+	<?php echo $form->dropDownList($lang,'languages_known2',Languages::items(),array('empty'=>'-----------Select---------')); ?>
+        <?php echo $form->error($lang,'languages_known2'); ?>
+    </div>
+
+
+    <div class="row">
+        <?php echo $form->labelEx($lang,'languages_known1'); ?>
+        <?php echo $form->dropDownList($lang,'languages_known1',Languages::items(),array('empty'=>'-----------Select---------')); ?>
+        <?php echo $form->error($lang,'languages_known1'); ?>
+    </div>
+
+    <div class="rowk">
+	<?php echo $form->labelEx($lang,'languages_known4');?>
+	<?php echo $form->dropDownList($lang,'languages_known4',Languages::items(),array('empty'=>'-----------Select---------')); ?>
+        <?php echo $form->error($lang,'languages_known4');?>
+    </div>
+
+
+    <div class="row">
+	<?php echo $form->labelEx($lang,'languages_known3');?>
+	<?php echo $form->dropDownList($lang,'languages_known3',Languages::items(),array('empty'=>'-----------Select---------')); ?>
+        <?php echo $form->error($lang,'languages_known3'); ?>
+    </div>
+	
+
+
+   <div class="row">
+        <?php echo $form->labelEx($model,'student_transaction_division_id'); ?>
+        <?php echo $form->dropDownList($model,'student_transaction_division_id',Division::items(), array('empty' => '-----------Select---------')); ?>
+        <?php echo $form->error($model,'student_transaction_division_id'); ?>
+    </div>
+

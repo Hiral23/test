@@ -1,0 +1,44 @@
+"Dept ID : ","All",,"Date : ",3-May-12,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+"Dept","Emp.ID","Name","Hol","WO","Shift","In1","Out1","In2","Out2","In3","Out3","In4","Out4","In5","Out5","Late","Early","Rem.","Leave","Tr","P.Wrk","U.Wrk","T.Wrk","Ex.Wk","OT","OD","DATE"
+"Ele",00000002,"Mr. Parth Vikrambhai Sandesara",,,"Gen",9:57,10:11,10:11:00 AM,,,,,,,,,0:44,"p",,,,,6:14,,,,2012-02-22
+"Gen",00000003,"Jitendra Natvarbhai Prajapati",,,"Gen",9:43,16:58,,,,,,,,,,,"P",,,,,7:15,0:03,,,2012-02-22
+"Gen",00000004,"Piyush Madhavlal Patel",,,"Gen",9:29,16:57,,,,,,,,,,,"P",,,,,7:28,0:02,,,2012-02-22
+"Mech",00000005,"Hitesh Baldevbhai Prajapati",,,"Gen",,,,,,,,,,,,,"A",,,,,,,,,2012-02-22
+"Civil",00000006,"Mehul Kiritbhai Dethariya",,,"Gen",9:34,16:57,,,,,,,,,,,"P",,,,,7:23,0:02,,,2012-02-22
+"Comp",00000007,"Darshan Poonambhai Patel",,,"Gen",9:37,16:58,,,,,,,,,,,"P",,,,,7:21,0:03,,,2012-02-22
+"Comp",00000008,"Avani Jaykrushnabhai Raval",,,"Gen",9:33,16:55,,,,,,,,,,,"P",,,,,7:22,,,,2012-02-22
+"Gen",00000009,"Monal Kanubhai Desai",,,"Gen",9:45,17:01,,,,,,,,,,,"P",,,,,7:16,0:06,,,2012-02-22
+"Civil",00000010,"Rahul Kaniyalal Rathod",,,"Gen",9:29,16:57,,,,,,,,,,,"P",,,,,7:28,0:02,,,2012-02-22
+"Mech",00000011,"Sukrut Maheshkumar Sompura",,,"Gen",9:56,16:57,,,,,,,,,,,"P",,,,,7:01,0:02,,,2012-02-22
+"Gen",00000012,"Bhavika Nikhilkumar Barot",,,"Gen",9:34,16:55,,,,,,,,,,,"P",,,,,7:21,,,,2012-02-22
+"Ele",00000013,"Nikunj Govindbhai Patel",,,"Gen",9:29,16:57,,,,,,,,,,,"P",,,,,7:28,0:02,,,2012-02-22
+"Mech",00000014,"Parth Dineshbhai Patel",,,"Gen",9:57,16:59,,,,,,,,,,,"P",,,,,7:02,0:04,,,2012-02-22
+"Admin",00000015,"Krupa Tusharbhai Patel",,,"Gen",9:32,16:46,,,,,,,,,,0:09,"P",,,,,7:14,,,,2012-02-22
+"Admin",00000016,"Mr.girish Rameshchandra Khamar",,,"Gen",9:23,16:56,,,,,,,,,,,"P",,,,,7:33,0:01,,,2012-02-22
+"Admin",00000017,"Vishnu Hemrajbhai Chaudhary",,,"Pen",8:54,17:49,,,,,,,,,,0:06,"P",,,,,8:55,,,,2012-02-22
+"Admin",00000018,"Askash Galabji Thakor",,,"Gen",8:04,17:49,,,,,,,,,,,"P",,,,,9:45,0:54,,,2012-02-22
+"Admin",00000019,"Narendrakumar Vastraram Rana",,,"Pen",8:39,17:37,,,,,,,,,,0:18,"P",,,,,8:58,,,,2012-02-22
+"Admin",00000020,"Bhartiben Nehalkumar Oza",,,"Gen",9:48,,,,,,,,,,,,"A",,,,,,,,,2012-02-22
+"Admin",00000021,"Urvi Jitendrakumar Khamar",,,"Gen",10:19,17:43,,,,,,,,,,,"P",,,,,7:24,0:48,,,2012-02-22
+"Admin",00000022,"Suresh Khumansinh Vihol",,,"Gen",,,,,,,,,,,,,"A",,,,,,,,,2012-02-22
+"Admin",00000023,"Vasantkumar Kachardas Patel",,,"Gen",10:34,17:08,,,,,,,,,0:39,,"p",,,,,6:34,0:13,,,2012-02-22
+"Admin",00000024,"Ajaysinh Vikramsinh Rathod",,,"Gen",,,,,,,,,,,,,"A",,,,,,,,,2012-02-22
+"Comp",00000025,"Khodaji Chhagugi Rajput",,,"Gen",10:23,16:56,,,,,,,,,,,"p",,,,,6:33,0:01,,,2012-02-22
+"Admin",00000026,"Rajnikant Ramchandbhai Prajapa",,,"Gen",8:58,17:08,,,,,,,,,,,"P",,,,,8:10,0:13,,,2012-02-22
+"Admin",00000027,"Pratapji Chamanji Rajput",,,"Pen",8:09,17:35,,,,,,,,,,0:20,"P",,,,,9:26,,,,2012-02-22
+"Civil",00000028,"Nitin Jayantibhai Patel",,,"Gen",9:29,16:58,,,,,,,,,,,"P",,,,,7:29,0:03,,,2012-02-22
+"Mech",00000029,"Bharat Babubhai Mistry",,,"Gen",9:43,16:58,,,,,,,,,,,"P",,,,,7:15,0:03,,,2012-02-22
+"Comp",00000030,"Gangaram Kesharabhai Patel",,,"Gen",9:08,17:38,,,,,,,,,,,"P",,,,,8:30,0:43,,,2012-02-22
+"Admin",00000031,"Mr. Jagdishsinh Joraji Rana",,,"Gen",10:07,17:07,,,,,,,,,,,"P",,,,,7:00,0:12,,,2012-02-22
+"Ele",00000032,"Rajendra Ganpatlal Patel",,,"Gen",9:43,16:57,,,,,,,,,,,"P",,,,,7:14,0:02,,,2012-02-22
+"Gen",00000033,"Jumishree Sarmah Pathak",,,"Gen",,,,,,,,,,,,,"A",,,,,,,,,2012-02-22
+"Admin",00000036,"Suresh Velaji Thakor",,,"Gen",,,,,,,,,,,,,"A",,,,,,,,,2012-02-22
+"Ele",00000037,"Shailesh Karsanbhai Prajapati",,,"Gen",,,,,,,,,,,,,"A",,,,,,,,,2012-02-22
+"Civil",00000038,"Jigar Jasvantbhai Patel",,,"Gen",,,,,,,,,,,,,"A",,,,,,,,,2012-02-22
+"Civil",00000039,"Nilesh Khemchandbhai Thakker",,,"Gen",,,,,,,,,,,,,"A",,,,,,,,,2012-02-22
+"Civil",00000040,"Hiral Vinodchandra Patel",,,"Gen",9:57,16:57,,,,,,,,,,,"P",,,,,7:00,0:02,,,2012-02-22
+"Admin",00000041,"Sangita Ishwarbhai Makwana",,,"Gen",,,,,,,,,,,,,"A",,,,,,,,,2012-02-22
+"Mech",00000042,"Satishkumar Amrutlal Patel",,,"Gen",9:34,16:57,,,,,,,,,,,"P",,,,,7:23,0:02,,,2012-02-22
+"Admin",00000043,"Chaudhary Ketan Dashrathbhai",,,"Gen",9:45,17:07,,,,,,,,,,,"P",,,,,7:22,0:12,,,2012-02-22
+"Civil",00000044,"Bharatsinh .s Rathod",,,"Gen",8:14,,,,,,,,,,,,"A",,,,,,,,,2012-02-22

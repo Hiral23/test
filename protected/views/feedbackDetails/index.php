@@ -1,0 +1,17 @@
+<?php
+$this->breadcrumbs=array(
+	'Feedback Details',
+);
+
+$this->menu=array(
+//	array('label'=>'Create FeedbackDetails', 'url'=>array('create')),
+//	array('label'=>'Manage FeedbackDetails', 'url'=>array('admin')),
+);
+?>
+
+<h1>Feedback Details</h1>
+
+<?php $this->widget('zii.widgets.CListView', array(
+	'dataProvider'=>$dataProvider,
+	'itemView'=>'_view',
+)); ?>
